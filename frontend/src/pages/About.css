@@ -1,0 +1,298 @@
+/* ------------ PAGE BACKGROUND ------------ */
+.about-page {
+  position: relative;
+  padding: 1.5rem 1.5rem;
+  background:
+    radial-gradient(
+      circle at 50% 20%,
+      rgba(237, 245, 242, 0.9) 0%,
+      rgba(255, 255, 255, 0.95) 45%,
+      rgba(255, 255, 255, 1) 70%
+    ),
+    linear-gradient(
+      to bottom,
+      #e8f2ee 0%,
+      rgba(255, 255, 255, 0) 250px
+    );
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+/* ------------ FULL-PAGE USA MAP BACKGROUND ------------ */
+.about-map-bg {
+  position: fixed;
+  top: 72px; /* just below navbar */
+  left: 0;
+  width: 100vw;
+  height: calc(100vh - 72px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.18;
+}
+
+/* Zoomed-out map so you see it on BOTH sides */
+.about-map-bg svg {
+  width: 260%;
+  max-width: none;
+  height: auto;
+  filter: grayscale(100%);
+  transform: translateX(-80%); /* slide left so map center is behind content */
+}
+
+/* All content above the map */
+.about-content-wrapper {
+  position: relative;
+  z-index: 1;
+}
+
+/* Hero + accordion + footer share same width & centering */
+.about-header,
+.accordion,
+.about-nav-footer-wrapper {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* ------------ HERO SECTION ------------ */
+.about-header {
+  background: linear-gradient(180deg, #d7e3dd 0%, #eef3ef 40%, #ffffff 100%);
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+}
+
+.about-title {
+  text-align: center;
+  font-size: 2.4rem;
+  color: #006747;
+  margin-bottom: 0.5rem;
+}
+
+.about-title::after {
+  content: "";
+  display: block;
+  width: 80px;
+  height: 4px;
+  background: #006747;
+  margin: 0.5rem auto 1.2rem;
+  border-radius: 2px;
+}
+
+.about-intro-text {
+  max-width: 900px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* ------------ ACCORDION ------------ */
+.accordion {
+  margin: 2rem auto 3rem;
+}
+
+.accordion-item {
+  margin-bottom: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+/* Header: dark green with white text */
+.accordion-header {
+  width: 100%;
+  padding: 16px 22px;
+  border: none;
+  background-color: #006747;
+  color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  font-size: 1.05rem;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+}
+
+.accordion-header span {
+  color: #ffffff;
+}
+
+.accordion-header:hover {
+  background-color: #038a5a;
+}
+
+/* Content: white card */
+.accordion-content {
+  background: #ffffff;
+  padding: 24px 28px;
+  border-top: 1px solid #e6ece9;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+/* ------------ CENTERED HEADINGS ------------ */
+.centered-heading {
+  text-align: center;
+  width: 100%;
+  margin: 2rem 0 1rem;
+  font-weight: 700;
+}
+
+.year-heading {
+  font-size: 1.4rem;
+  margin-top: 1rem;
+  color: #13322b;
+}
+
+/* ------------ TEAM CARDS ------------ */
+.prof-card,
+.student-card {
+  position: relative;
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 1.5rem 1.25rem 1.25rem;
+  border-top: 6px solid #006747;
+  max-width: 240px;
+  text-align: center;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Spotlight glow */
+.prof-card::before,
+.student-card::before {
+  content: "";
+  position: absolute;
+  top: -20%;
+  left: -20%;
+  width: 140%;
+  height: 140%;
+  background: radial-gradient(
+    circle,
+    rgba(0, 103, 71, 0.09),
+    transparent 60%
+  );
+  z-index: 0;
+}
+
+/* Ensure content stays above glow */
+.prof-card > *,
+.student-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Hover lift */
+.prof-card:hover,
+.student-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.18);
+}
+
+/* Avatar */
+.prof-img,
+.avatar-small {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 auto 0.75rem;
+  background: #ddd;
+}
+
+.prof-name,
+.student-card h4 {
+  margin: 0.25rem 0 0.35rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #13322b;
+}
+
+.student-card p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #55646a;
+}
+
+/* ------------ TEAM GRID ------------ */
+.team-leads,
+.student-grid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.student-section {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+/* ------------ FOOTER NAV ------------ */
+.about-nav-footer-wrapper {
+  padding-top: 1.5rem;
+  border-top: 1px solid #d9e5e0;
+}
+
+.about-nav-footer {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+}
+
+.about-nav-link {
+  color: #004d2d;
+  font-weight: 600;
+  text-transform: uppercase;
+  text-decoration: none;
+  letter-spacing: 0.03em;
+  transition: 0.25s ease;
+}
+
+.about-nav-link:hover {
+  color: #006747;
+  text-decoration: underline;
+}
+
+/* ------------ RESPONSIVE ------------ */
+@media (max-width: 900px) {
+  .about-page {
+    padding: 1.2rem 0.75rem;
+  }
+
+  .about-header {
+    padding: 1.5rem;
+  }
+
+  .about-title {
+    font-size: 2rem;
+  }
+
+  .about-nav-footer {
+    gap: 1.5rem;
+  }
+
+  .about-map-bg svg {
+    width: 300%;
+    transform: translateX(-100%); /* keep centered on smaller screens */
+  }
+}
+
+@media (max-width: 600px) {
+  .prof-card,
+  .student-card {
+    max-width: 90%;
+  }
+
+  .about-nav-footer {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .about-nav-link {
+    font-size: 0.95rem;
+  }
+}
