@@ -29,10 +29,18 @@ jobs:
           npm install
           npm run build --if-present
 
-      - name: Zip build output
+      - name: Prepare deploy folder
         run: |
-          cd frontend/build
-          zip -r ../../site.zip .
+          rm -rf deploy
+          mkdir deploy
+          cp -r frontend/build deploy/build
+          cp server.js deploy/server.js
+          cp package.json deploy/package.json
+
+      - name: Zip deploy package
+        working-directory: deploy
+        run: |
+          zip -r ../site.zip .
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
@@ -57,6 +65,7 @@ jobs:
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_15306AB08EE24FCEB29266DFB45F0092 }}
           package: site.zip
+
 
 
 
