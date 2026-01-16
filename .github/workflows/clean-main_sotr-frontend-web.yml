@@ -29,11 +29,16 @@ jobs:
           npm install
           npm run build --if-present
 
+      - name: Zip build output
+        run: |
+          cd frontend/build
+          zip -r ../../site.zip .
+
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
-          name: node-app
-          path: frontend/build
+          name: site
+          path: site.zip
 
   deploy:
     runs-on: ubuntu-latest
@@ -43,15 +48,15 @@ jobs:
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
-          name: node-app
+          name: site
       
-      - name: 'Deploy to Azure Web App'
-        id: deploy-to-webapp
+      - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'sotr-frontend-web'
           slot-name: 'Production'
-          package: .
-
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_15306AB08EE24FCEB29266DFB45F0092 }}
+          package: site.zip
+
+
 
