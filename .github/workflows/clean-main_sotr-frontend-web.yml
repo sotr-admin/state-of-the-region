@@ -13,7 +13,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: read #This is required for actions/checkout
+      contents: read
 
     steps:
       - uses: actions/checkout@v4
@@ -21,20 +21,26 @@ jobs:
       - name: Set up Node.js version
         uses: actions/setup-node@v3
         with:
-          node-version: '24.x'
+          node-version: "20.x"
 
-      - name: npm install, build, and test (frontend)
+      - name: Install + build (frontend)
         working-directory: frontend
         run: |
-          npm install
-          npm run build --if-present
+          npm ci
+          npm run build
 
-      - name: Prepare deploy folder
+      - name: Prepare deploy folder (server + build)
         run: |
           rm -rf deploy
-          mkdir deploy
-          cp -r frontend/build/* deploy/
+          mkdir -p deploy/build
+          cp -r frontend/build/* deploy/build/
+          cp server.js deploy/server.js
+          cp package.json deploy/package.json
 
+      - name: Install production deps (so express exists)
+        working-directory: deploy
+        run: |
+          npm install --omit=dev
 
       - name: Zip deploy package
         working-directory: deploy
@@ -50,22 +56,17 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: build
-    
+
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
           name: site
-      
+
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'sotr-frontend-web'
-          slot-name: 'Production'
+          app-name: "sotr-frontend-web"
+          slot-name: "Production"
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_15306AB08EE24FCEB29266DFB45F0092 }}
           package: site.zip
-
-
-
-
-
