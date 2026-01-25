@@ -30,8 +30,11 @@ export default function TableauViz({
   const finalUrl = useMemo(() => {
     if (!base) return "";
     const join = base.includes("?") ? "&" : "?";
+
+    // Tableau expects these as :param=value style
     const toolbarParam = toolbar ? "" : ":toolbar=no";
     const tabsParam = tabs ? "" : ":tabs=no";
+
     const extra = [toolbarParam, tabsParam].filter(Boolean).join("&");
     return extra ? `${base}${join}${extra}` : base;
   }, [base, toolbar, tabs]);
@@ -46,13 +49,6 @@ export default function TableauViz({
 
   return (
     <div style={{ width: "100%", borderRadius: 12, overflow: "hidden" }}>
-      {/* Small helper for debugging/demo */}
-      <div style={{ fontSize: 12, color: "#6b7280", padding: "6px 0" }}>
-        <a href={url} target="_blank" rel="noreferrer">
-          Open in Tableau Public
-        </a>
-      </div>
-
       <iframe
         title="Tableau Visualization"
         src={finalUrl}
