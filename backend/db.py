@@ -4,7 +4,7 @@ import struct
 
 import pyodbc
 from dotenv import load_dotenv
-from azure.identity import InteractiveBrowserCredential, TokenCachePersistenceOptions
+from azure.identity import DefaultAzureCredential, InteractiveBrowserCredential, TokenCachePersistenceOptions
 
 SQL_COPT_SS_ACCESS_TOKEN = 1256
 
@@ -12,7 +12,12 @@ load_dotenv()
 
 # --- Azure AD token caching (prevents repeated login popups) ---
 _cache_opts = TokenCachePersistenceOptions(name="sotr-token-cache")
-credential = InteractiveBrowserCredential(cache_persistence_options=_cache_opts)
+
+if os.getenv("AZURE_ENV") == "cloud":
+    credential = DefaultAzureCredential()
+else:
+    credential = InteractiveBrowserCredential(cache_persistence_options=_cache_opts)
+
 
 _token_cache = {"token": None, "expires_on": 0}
 
