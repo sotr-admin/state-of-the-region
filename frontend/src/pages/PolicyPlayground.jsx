@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   Bar,
   BarChart,
@@ -287,7 +287,7 @@ const PolicyPlayground = () => {
   useEffect(() => {
     const list = indicators[category] || [];
     setIndicator(list.length ? list[0].value : "");
-  }, [category, indicators]);
+  }, [category]);
 
   // Lock geoLevel to county for now
   useEffect(() => {
@@ -317,7 +317,7 @@ const PolicyPlayground = () => {
     }, 400);
 
     return () => clearTimeout(t);
-  }, [countySearch]);
+  }, [countySearch, indicator]);
 
   const addCounty = (county) => {
     setRegionMessage("");
@@ -385,11 +385,14 @@ const PolicyPlayground = () => {
   const appliedCategory = appliedConfig?.category || category;
   const appliedIndicator = appliedConfig?.indicator || "";
   const appliedChartType = appliedConfig?.chartType || "line";
-  const appliedDateRange = appliedConfig?.dateRange || {
-    start: String(MIN_YEAR),
-    end: String(MAX_YEAR),
-  };
-  const appliedCounties = appliedConfig?.selectedCounties || [];
+  const appliedDateRange = useMemo(() => 
+  appliedConfig?.dateRange || { start: String(MIN_YEAR), end: String(MAX_YEAR) },
+  [appliedConfig]
+  );
+  const appliedCounties = useMemo(() => 
+  appliedConfig?.selectedCounties || [],
+  [appliedConfig]
+  );
 
   const appliedIndicatorsList = indicators[appliedCategory] || [];
   const appliedIndicatorLabel =
@@ -522,12 +525,12 @@ const PolicyPlayground = () => {
     return m;
   }, [rawSeries, appliedDateRange]);
 
-  const formatValueForIndicator = (v) => {
-    if (!Number.isFinite(Number(v))) return "NA";
-    const decimals = appliedMeta?.valueDecimals ?? 1;
-    const num = Number(v);
+  const formatValueForIndicator = useCallback((v) => {
+  if (!Number.isFinite(Number(v))) return "NA";
+  const decimals = appliedMeta?.valueDecimals ?? 1;
+  const num = Number(v);
 
-    if (appliedMeta?.unitLabel === "%") return `${formatNumber(num, decimals)}%`;
+  if (appliedMeta?.unitLabel === "%") return `${formatNumber(num, decimals)}%`;
     if (appliedMeta?.unitLabel === "$") {
       return new Intl.NumberFormat("en-US", {
         style: "currency",
@@ -537,9 +540,9 @@ const PolicyPlayground = () => {
     }
     if (appliedMeta?.unitLabel === "index") return formatNumber(num, decimals);
     return formatNumber(num, decimals);
-  };
+}, [appliedMeta]);
 
-  const formatDelta = (delta) => {
+  const formatDelta = useCallback((delta) => {
     if (!Number.isFinite(Number(delta))) return "NA";
     const d = Number(delta);
     const sign = d > 0 ? "+" : "";
@@ -548,7 +551,7 @@ const PolicyPlayground = () => {
     }
     const decimals = appliedMeta?.valueDecimals ?? 1;
     return `${sign}${formatNumber(d, decimals)}`;
-  };
+}, [appliedMeta]);
 
   const buildCombinedInsights = () => {
     if (!showChart) return [];
@@ -646,10 +649,12 @@ const PolicyPlayground = () => {
   };
 
   const insights = useMemo(buildCombinedInsights, [
-    showChart,
-    appliedDateRange,
-    perCountySeries,
-    appliedIndicator,
+  showChart,
+  appliedDateRange,
+  perCountySeries,
+  appliedMeta,
+  formatDelta,
+  formatValueForIndicator,
   ]);
 
   const showInsights = showChart && insights.length > 0;
