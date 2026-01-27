@@ -24,6 +24,8 @@ jobs:
 
       - name: Install and build frontend
         working-directory: frontend
+        env:
+          REACT_APP_API_BASE_URL: "https://mumasotrprodwa-erhxhycngfc5gsfw.eastus-01.azurewebsites.net"
         run: |
           npm ci
           npm run build
@@ -39,8 +41,8 @@ jobs:
           echo "built_at_utc=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> deploy/version.txt
 
       - name: Zip deploy package
-        working-directory: deploy
         run: |
+          cd deploy
           zip -r ../site.zip .
 
       - name: Upload artifact
@@ -64,5 +66,7 @@ jobs:
         with:
           app-name: "sotr-frontend-web"
           slot-name: "Production"
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_15306AB08EE24FCEB29266DFB45F0092 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_SOTR_FRONTEND_WEB }}
           package: site.zip
+
+
