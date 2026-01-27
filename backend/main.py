@@ -1,14 +1,15 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from backend.routers.health import router as health_router
-from backend.routers.counties import router as counties_router
-from backend.routers.income import router as income_router
-from backend.routers.housing import router as housing_router
-from backend.routers.education import router as education_router
-from backend.routers.employment import router as employment_router
-from backend.routers.poverty import router as poverty_router
-from backend.routers.availability import router as availability_router
+from routers.health import router as health_router
+from routers.counties import router as counties_router
+from routers.income import router as income_router
+from routers.housing import router as housing_router
+from routers.education import router as education_router
+from routers.employment import router as employment_router
+from routers.poverty import router as poverty_router
+from routers.availability import router as availability_router
+
 
 
 app = FastAPI(title="SOTR API")
