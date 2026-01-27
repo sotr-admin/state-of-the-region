@@ -20,7 +20,7 @@ app.add_middleware(
     allow_origins=[
         #"http://localhost:3000",
         #"http://127.0.0.1:3000",
-        "*"
+        "https://sotr-frontend-web-h6f9fbafakg6axdn.eastus-01.azurewebsites.net"
     ],
     allow_credentials=True,
     allow_methods=["*"],
