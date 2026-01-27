@@ -287,7 +287,7 @@ const PolicyPlayground = () => {
   useEffect(() => {
     const list = indicators[category] || [];
     setIndicator(list.length ? list[0].value : "");
-  }, [category]);
+  }, [category, indicators]);
 
   // Lock geoLevel to county for now
   useEffect(() => {
