@@ -16,10 +16,12 @@ function App() {
           {/* Home */}
           <Route path="/" element={<Home />} />
 
-          {/* Reports:
-              - /reports → redirect to default (income)
-              - /reports/:topic → render that report (income, health, etc.) */}
-          <Route path="/reports" element={<Navigate to="/reports/income" replace />} />
+          {/* Reports
+              Supports:
+              - /reports              (landing OR reads ?topic=...)
+              - /reports/:topic       (topic page)
+          */}
+          <Route path="/reports" element={<Reports />} />
           <Route path="/reports/:topic" element={<Reports />} />
 
           {/* Other pages */}

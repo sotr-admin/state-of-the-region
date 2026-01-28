@@ -33,10 +33,10 @@ const categories = [
   { value: "income", label: "Income" },
   { value: "employment", label: "Employment" },
   { value: "housing", label: "Housing" },
-  { value: "demographics", label: "Demographics" },
+  //{ value: "demographics", label: "Demographics" },
   { value: "education", label: "Education" },
   { value: "poverty", label: "Poverty" },
-  { value: "transportation", label: "Transportation" },
+  //{ value: "transportation", label: "Transportation" },
 ];
 
 const indicators = {
