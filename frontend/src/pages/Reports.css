@@ -1,4 +1,23 @@
 /* =========================
+   Global typography
+   ========================= */
+
+   body {
+    font-family: "Source Serif 4", Georgia, serif;
+    color: #1f2937;
+  }
+  
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  button,
+  .sidebar-link {
+    font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+  /* =========================
    Root helpers
    ========================= */
 
@@ -12,24 +31,35 @@
   
   .reports-page {
     width: 100%;
+    background: #ffffff;
+    min-height: 100vh;
   }
   
   .reports-layout {
     display: flex;
     min-height: calc(100vh - 80px);
+    padding: 18px 18px 40px 18px;
+    gap: 18px;
+    box-sizing: border-box;
   }
   
   /* =========================
      Sidebar
      ========================= */
   
-  .reports-sidebar {
-    background: #f6f7f8;
-    border-right: 1px solid #e7e7e7;
-    position: relative;
-    transition: width 0.2s ease;
-    overflow: visible;
-  }
+     .reports-sidebar {
+      background: transparent;          /* remove panel feel */
+      border: none;                     /* no box */
+      border-right: 1px solid #e5e7eb;  /* subtle vertical divider */
+      border-radius: 0;
+      position: sticky;
+      top: 96px;
+      height: fit-content;
+      transition: width 0.2s ease;
+      overflow: visible;
+    }
+    
+    
   
   .reports-sidebar.open {
     width: 220px;
@@ -37,7 +67,6 @@
   
   .reports-sidebar.closed {
     width: 0px;
-    border-right: 1px solid #e7e7e7;
   }
   
   /* =========================
@@ -57,12 +86,10 @@
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
   }
   
-  /* When sidebar OPEN: toggle sits on divider */
   .reports-sidebar.open .sidebar-toggle {
     right: -18px;
   }
   
-  /* When sidebar CLOSED: toggle shifts into gutter */
   .reports-sidebar.closed .sidebar-toggle {
     left: -12px;
   }
@@ -74,26 +101,68 @@
   .sidebar-nav {
     display: flex;
     flex-direction: column;
-    padding: 54px 10px 14px 10px;
+    padding: 54px 8px 14px 8px;
     gap: 6px;
   }
   
+  .sidebar-section-title {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin: 6px 0 14px 4px;
+    color: #6b7280;
+  }
+  
+  .sidebar-section-title.highlight {
+    position: relative;
+    padding-left: 10px;
+    color: #0f5132;
+  }
+  
+  .sidebar-section-title.highlight::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 2px;
+    bottom: 2px;
+    width: 4px;
+    border-radius: 4px;
+    background: #006747;
+  }
+  
   .sidebar-link {
+    display: block;
     text-decoration: none;
     color: #111827;
-    padding: 10px 12px;
-    border-radius: 8px;
+    padding: 8px 12px;
+
+    border-radius: 6px;
     font-size: 14px;
+    line-height: 1.3;
+    transition: background 0.15s ease, color 0.15s ease;
   }
   
   .sidebar-link:hover {
-    background: #e8f5ee;
+    background: #eef5f1;
   }
   
   .sidebar-link.active {
-    background: #d9f2e3;
-    color: #065f46;
+    background: #dff3e6;
+    color: #0f5132;
     font-weight: 600;
+    position: relative;
+  }
+  
+  .sidebar-link.active::before {
+    content: "";
+    position: absolute;
+    left: -8px;
+    top: 8px;
+    bottom: 8px;
+    width: 4px;
+    border-radius: 4px;
+    background: #006747;
   }
   
   /* =========================
@@ -102,13 +171,13 @@
   
   .reports-content {
     flex: 1;
-    padding: 18px 22px 40px 22px;
-    background: #ffffff;
+    display: flex;
+    justify-content: center;
   }
   
-  /* Reserve space ONLY when sidebar is collapsed */
-  .reports-sidebar.closed + .reports-content {
-    padding-top: var(--toggle-safe-top);
+  .reports-content-inner {
+    width: 100%;
+    max-width: 1180px;
   }
   
   /* =========================
@@ -116,72 +185,127 @@
      ========================= */
   
   .report-top {
-    padding-bottom: 10px;
+    margin: 0 0 28px;
+    padding: 20px 22px 18px;
+    border: 1px solid #eef0f2;
+    border-radius: 8px;
+    background: linear-gradient(
+  180deg,
+  #eef7f2 0%,   /* subtle USF green tint */
+  #ffffff 75%
+);
   }
   
   .report-title-plain {
-    margin: 0;
-    font-size: 28px;
+    font-size: 32px;      /* was 30px */
     font-weight: 700;
-    color: #111827;
+    letter-spacing: -0.02em;
   }
+  
   
   .report-subtitle-plain {
-    margin-top: 6px;
-    font-size: 14px;
-    color: #6b7280;
+    color: #4b5563;
+    font-size: 14.5px;
+    line-height: 1.5;
+    max-width: 760px;
+    margin: 0;
+    font-style: italic;
+  }
+  .report-subtitle-plain {
+    font-size: 15px;      /* was 14.5px */
+    line-height: 1.6;
   }
   
-  /* Overview text only (no box, no heading) */
+  /* =========================
+     Overview
+     ========================= */
+  
   .overview-plain {
-    margin-top: 12px;
+    margin: 0 0 24px;
+    padding-left: 14px;
+    border-left: 3px solid #d1fae5;
   }
   
   .overview-text {
     margin: 0;
     font-size: 14px;
-    line-height: 1.5;
+    line-height: 1.6;
     color: #4b5563;
+  }
+  .overview-text {
+    font-size: 15px;      /* was 14px */
+    line-height: 1.65;
   }
   
   /* =========================
      Indicators
      ========================= */
   
-  .indicator-grid {
-    margin-top: 18px;
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
+  .indicator-section {
+    margin-top: 32px;
   }
   
+  .indicator-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+  
+  /* Indicator container (mostly flat) */
   .indicator-panel {
-    border: 1px solid #e5e7eb;
-    border-radius: 14px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
     background: #ffffff;
     padding: 16px 16px 12px 16px;
+    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.06);
+    transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
+  }
+  
+  .indicator-panel:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 30px rgba(0, 0, 0, 0.08);
+    border-color: #cbd5e1;
   }
   
   .indicator-header {
-    margin-bottom: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #eef0f2;
   }
   
   .indicator-title {
-    margin: 0;
-    font-size: 16px;
+    font-size: 19px;
     font-weight: 700;
-    color: #111827;
+    color: #0b3d2e;
+    margin: 0 0 4px;
+  }
+  
+  .indicator-subtitle {
+    font-size: 14px;
+    color: #6b7280;
+    margin: 0;
+    max-width: none;     /* removes any text constraint */
+    width: 100%;
+  }
+  
+  /* =========================
+     Tableau area (full-bleed feel)
+     ========================= */
+  
+  .indicator-chart-frame {
+    margin-top: 10px;
   }
   
   .indicator-chart {
-    margin-top: 8px;
+    overflow: hidden;
+    border-radius: 0;
+    background: #ffffff;
   }
   
   .indicator-chart-placeholder {
     width: 100%;
     height: 320px;
     border: 1px dashed #cbd5e1;
-    border-radius: 12px;
     background: #f8fafc;
     display: flex;
     align-items: center;
@@ -194,39 +318,98 @@
      ========================= */
   
   .indicator-meta {
-    margin-top: 10px;
+    margin-top: 14px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
     padding-top: 10px;
-    border-top: 1px solid #eef2f7;
-  }
-  
-  .indicator-summary {
-    margin: 0 0 8px 0;
-    font-size: 13px;
-    color: #4b5563;
+    border-top: 1px solid #f1f5f9;
   }
   
   .indicator-label {
-    margin: 4px 0;
-    font-size: 12px;
-    color: #6b7280;
+    font-size: 12.5px;
+    color: #334155;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    padding: 6px 10px;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
   }
   
   .indicator-label-tag {
-    display: inline-block;
-    min-width: 90px;
+    padding: 2px 8px;
+    border-radius: 999px;
+    border: 1px solid #dff3e6;
+    background: #f3faf6;
+    color: #0f5132;
     font-weight: 700;
-    letter-spacing: 0.08em;
+    font-size: 11px;
     text-transform: uppercase;
-    color: #374151;
   }
+  
+  .indicator-action {
+    margin-left: auto;
+    font-size: 12.5px;
+    font-weight: 700;
+    text-decoration: none;
+    color: #006747;
+    padding: 6px 10px;
+    border-radius: 999px;
+    border: 1px solid #dff3e6;
+    background: #f3faf6;
+  }
+  
+  .indicator-action:hover {
+    background: #e9f7ef;
+  }
+  
+  /* =========================
+     Show more button
+     ========================= */
+  
+     .show-more-btn {
+      border: 1px solid #006747;        /* USF green */
+      background: #f3faf6;              /* very light green tint */
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      color: #006747;
+      transition: background 0.14s ease, border-color 0.14s ease;
+    }
+    
+    .show-more-btn:hover {
+      background: #e6f4ed;
+      border-color: #004f39;
+    }
+    .show-more-wrap {
+      display: flex;
+      justify-content: center;
+      margin: 36px 0 10px; /* more space from indicator */
+    }
+    
+    
   
   /* =========================
      Responsive
      ========================= */
   
-  @media (max-width: 980px) {
-    .indicator-chart-placeholder {
-      height: 280px;
+  @media (max-width: 768px) {
+    .reports-layout {
+      padding: 12px;
+      gap: 12px;
+    }
+  
+    .indicator-panel {
+      padding: 14px;
+    }
+  
+    .indicator-action {
+      margin-left: 0;
     }
   }
   

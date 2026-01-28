@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useParams, Navigate } from "react-router-dom";
 import "./Reports.css";
 import TableauViz from "../components/TableauViz";
 
@@ -16,28 +16,29 @@ const TOPICS = [
 
 const STANDARD_DATE_RANGE = "Last 10 complete years (2014–2023)";
 const DEFAULT_SUBTITLE =
-  "Standardized report with five indicators comparing Jacksonville · Tampa Bay · Orlando.";
+  "Explore how trends have changed over time and how the Tampa Bay region compares with peer metros.";
 
 const CATEGORY_CONFIG = {
   employment: {
     title: "Employment",
     overview:
-      "Sample overview content for Employment. This will be customized later per category.",
+      "This section highlights key trends over the past decade and compares Tampa Bay with peer regions to understand how outcomes are changing over time.",
     indicators: [
       {
         id: "emp-1",
         title: "Labor Force Participation Rate",
         summary:
-          "Tracks the share of working-age population active in the labor force.",
-        source: "Source: Tableau Public",
+          "The labor force participation rate measures the share of the working-age population (ages 16 and over) that is either employed or actively seeking work. This indicator helps users understand how engaged residents are in the labor market beyond unemployment alone. Regions with higher participation rates generally reflect stronger labor market attachment, while lower rates may signal barriers such as caregiving responsibilities, health limitations, or limited job access. Users should expect this measure to change gradually over time rather than fluctuate sharply from year to year.",
+        source: "U.S. Census Bureau, American Community Survey (ACS)",
         tableauUrl:
           "https://public.tableau.com/views/S2301_Employment_Status/LaborParticipationTrend?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link",
       },
       {
         id: "emp-2",
         title: "Employment–Population Ratio",
-        summary: "Measures the proportion of the population that is employed.",
-        source: "Source: Tableau Public",
+        summary:
+          "The employment–population ratio shows the share of the working-age population that is currently employed. Unlike the unemployment rate, this measure includes people who are not actively seeking work, providing a broader view of employment across a region. It is especially useful for comparing labor market strength across regions with different demographic profiles. Users should expect this indicator to move with economic conditions, but often more smoothly than monthly employment statistics.",
+        source: "U.S. Census Bureau, American Community Survey (ACS)",
         tableauUrl:
           "https://public.tableau.com/views/S2301_Employment_Status/Employment-PopulationTrend?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link",
       },
@@ -45,16 +46,17 @@ const CATEGORY_CONFIG = {
         id: "emp-3",
         title: "Black–White Unemployment Rate Gap",
         summary:
-          "Shows disparities in unemployment rates between Black and White workers.",
-        source: "Source: Tableau Public",
+          "This indicator measures the difference in unemployment rates between Black and White residents within a region. It highlights disparities in labor market outcomes that are not visible in overall unemployment figures. Larger gaps may reflect differences in access to employment opportunities, job stability, or economic resilience across groups. Users should expect this measure to vary by region and to change gradually over time rather than respond quickly to short-term economic shifts.",
+        source: "U.S. Census Bureau, American Community Survey (ACS)",
         tableauUrl:
           "https://public.tableau.com/views/Black-WhiteUnemploymentRateGap/TrendoverTime?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link",
       },
       {
         id: "emp-4",
         title: "Black–White Labor Force Participation Rate Gap",
-        summary: "Highlights participation gaps in the labor force by race.",
-        source: "Source: Tableau Public",
+        summary:
+          "The Black–White labor force participation rate gap compares the share of Black and White residents who are working or actively seeking work. This indicator provides insight into differences in labor market engagement across groups, which may be influenced by education, caregiving, health, or access to employment. Smaller gaps suggest more similar levels of labor force participation, while larger gaps point to uneven engagement. Users should expect this indicator to reflect long-term structural patterns rather than short-term economic cycles.",
+        source: "U.S. Census Bureau, American Community Survey (ACS)",
         tableauUrl:
           "https://public.tableau.com/views/Black-WhiteLaborParticipationRateGap/TrendoverTime?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link",
       },
@@ -62,8 +64,8 @@ const CATEGORY_CONFIG = {
         id: "emp-5",
         title: "Business Establishment Growth",
         summary:
-          "Tracks new business establishment rates over the last 12 months.",
-        source: "Source: Tableau Public",
+          "Business establishment growth tracks changes in the number of operating businesses within a region over time. This indicator is commonly used as a signal of economic activity, entrepreneurship, and job creation potential. Growth in establishments may indicate a favorable business environment, while slower growth or declines can signal economic contraction or consolidation. Users should expect this measure to respond more slowly than employment figures and to vary across regions depending on industry mix and economic conditions.",
+        source: "U.S. Census Bureau, County Business Patterns (CBP)",
         tableauUrl:
           "https://public.tableau.com/views/NewBusinessEstablishmentRateintheLast12Months/TrendoverTime?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link",
       },
@@ -73,14 +75,15 @@ const CATEGORY_CONFIG = {
   education: {
     title: "Education",
     overview:
-      "Sample overview content for Education. This will be customized later per category.",
+      "This section highlights key trends over the past decade and compares Tampa Bay with peer regions to understand how outcomes are changing over time.",
     indicators: [
       {
         id: "edu-1",
-        title: "Educational Attainment by Employment Status for the Population 25 to 64 Years",
+        title:
+          "Educational Attainment by Employment Status for the Population 25 to 64 Years",
         summary:
-          "Distribution of educational attainment across employment status categories.",
-        source: "Source: Tableau Public",
+          "This indicator shows how employment status varies by level of educational attainment for adults ages 25 and over. It helps users understand the relationship between education and labor market outcomes, including differences in employment, unemployment, and labor force participation across education levels. Higher educational attainment is typically associated with stronger employment outcomes, though patterns vary by region and economic conditions. Users should expect this indicator to reflect long-term trends rather than short-term labor market fluctuations.",
+        source: "U.S. Census Bureau, American Community Survey (ACS)",
         tableauUrl: [
           "https://public.tableau.com/views/B23006_HigherEducation_Website/Sheet1?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link",
           "https://public.tableau.com/views/B23006_Low_education_Website/Sheet1?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link",
@@ -90,8 +93,9 @@ const CATEGORY_CONFIG = {
         id: "edu-2",
         title: "Number of Students Receiving Bachelor’s Degrees",
         summary:
-          "Trend over time in the number of students awarded bachelor’s degrees.",
-        source: "Source: Tableau Public",
+          "This indicator tracks the total number of bachelor’s degrees awarded by postsecondary institutions within a region. It provides insight into the volume of higher education as an output and the region’s capacity to produce a college-educated workforce. Changes over time may reflect enrollment trends, institutional capacity, or demographic shifts. Users should expect gradual changes rather than sharp year-to-year swings.",
+        source:
+          "National Center for Education Statistics (NCES), Integrated Postsecondary Education Data System (IPEDS)",
         tableauUrl:
           "https://public.tableau.com/views/BachelorsDegree/TrendoverTime?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link",
       },
@@ -99,8 +103,9 @@ const CATEGORY_CONFIG = {
         id: "edu-3",
         title: "Number of Students Receiving Master’s Degrees",
         summary:
-          "Rank-based comparison of master’s degree attainment across metros.",
-        source: "Source: Tableau Public",
+          "This measure captures the number of master’s degrees awarded within a region each year. It is often used as a signal of advanced workforce development and alignment with professional and technical labor demand. Growth or decline in master’s degree production may reflect changes in labor market needs, student demand, or institutional offerings. Users should interpret this indicator in the context of broader education and employment trends.",
+        source:
+          "National Center for Education Statistics (NCES), Integrated Postsecondary Education Data System (IPEDS)",
         tableauUrl:
           "https://public.tableau.com/views/MastersDegree/Sheet1?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link",
       },
@@ -108,8 +113,8 @@ const CATEGORY_CONFIG = {
         id: "edu-4",
         title: "Median Earnings by Educational Attainment (B20004)",
         summary:
-          "Comparison of median earnings across educational attainment levels.",
-        source: "Source: Tableau Public",
+          "This indicator reports median earnings for individuals based on their highest level of educational attainment. It helps illustrate the economic returns associated with different education levels and highlights earnings differences across groups. Higher levels of education are generally associated with higher median earnings, though the size of the earnings gap varies by region. Users should expect earnings levels to change gradually and to be influenced by regional industry mix and cost of living.",
+        source: "U.S. Census Bureau, American Community Survey (ACS)",
         tableauUrl:
           "https://public.tableau.com/views/B20004_HigherEducation_Website/Sheet1?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link",
       },
@@ -118,8 +123,8 @@ const CATEGORY_CONFIG = {
         title:
           "Poverty Status by Educational Attainment – Bachelor’s Degree or Higher (S1701)",
         summary:
-          "Competitive position for poverty rates among adults with a bachelor’s degree or higher.",
-        source: "Source: Tableau Public",
+          "This indicator shows the share of adults with a bachelor’s degree or higher whose income falls below the poverty threshold. It provides insight into economic security among higher-educated residents and highlights that educational attainment alone does not eliminate poverty risk. While poverty rates are typically lower for this group compared to those with less education, regional variation can be substantial. Users should expect this indicator to reflect structural economic conditions rather than short-term changes.",
+        source: "U.S. Census Bureau, American Community Survey (ACS)",
         tableauUrl:
           "https://public.tableau.com/views/PercentageofAdultsWithaBachelorsDegreeorHigherBelowthePovertyLevel/CompetitivePositionTrend?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link",
       },
@@ -129,21 +134,23 @@ const CATEGORY_CONFIG = {
   housing: {
     title: "Housing",
     overview:
-      "Sample overview content for Housing. This will be customized later per category.",
+      "This section highlights key trends over the past decade and compares Tampa Bay with peer regions to understand how outcomes are changing over time.",
     indicators: [
       {
         id: "hou-1",
         title: "Zillow Home Value Index",
-        summary: "Trend over time for the Zillow Home Value Index (ZHVI).",
-        source: "Source: Tableau Public",
+        summary:
+          "The Zillow Home Value Index tracks the typical home value for a region, reflecting changes in residential real estate prices over time. It is commonly used to assess housing market trends, affordability pressures, and wealth accumulation through homeownership. Rising home values can signal strong housing demand but may also indicate growing barriers to homeownership for prospective buyers. Users should expect this indicator to respond to market conditions and to vary across regions depending on supply, demand, and local economic factors.",
+        source: "Zillow Research",
         tableauUrl:
           "https://public.tableau.com/views/Zillow_HomeValue/Trend?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link",
       },
       {
         id: "hou-2",
         title: "Zillow Observed Rent Index",
-        summary: "Trend over time for the Zillow Observed Rent Index (ZORI).",
-        source: "Source: Tableau Public",
+        summary:
+          "The Zillow Observed Rent Index measures typical rental prices for a region based on observed rental listings. This indicator helps users understand trends in rental housing costs and affordability for renters. Increases in rent levels can place added financial pressure on households, particularly those with lower or fixed incomes. Users should expect rent trends to change more rapidly than home values and to reflect local housing market dynamics.",
+        source: "Zillow Research",
         tableauUrl:
           "https://public.tableau.com/views/Zillow_RentIndex/Trend?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link",
       },
@@ -151,8 +158,8 @@ const CATEGORY_CONFIG = {
         id: "hou-3",
         title: "Homeownership Rate (B25003)",
         summary:
-          "Trend over time for the percentage of housing units occupied by owners.",
-        source: "Source: Tableau Public",
+          "The homeownership rate shows the share of occupied housing units that are owner-occupied rather than rented. It provides insight into housing stability, wealth-building opportunities, and long-term residential patterns. Homeownership rates vary widely by region and are influenced by housing costs, income levels, credit access, and demographic factors. Users should expect this indicator to change gradually over time rather than fluctuate year to year.",
+        source: "U.S. Census Bureau, American Community Survey (ACS)",
         tableauUrl:
           "https://public.tableau.com/views/PercentageofUnitsOccupiedbyOwner/TrendoverTime?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link",
       },
@@ -160,8 +167,8 @@ const CATEGORY_CONFIG = {
         id: "hou-4",
         title: "Monthly Housing Costs (B25104)",
         summary:
-          "Comparison of households with monthly housing costs below $1,500.",
-        source: "Source: Tableau Public",
+          "This indicator reports monthly housing costs for households, including expenses such as rent, mortgage payments, utilities, and other housing-related costs. It helps users understand the financial burden of housing and how costs vary across regions. Higher monthly housing costs can reduce household financial flexibility and increase vulnerability to economic shocks. Users should expect this measure to reflect longer-term cost trends rather than short-term market shifts.",
+        source: "U.S. Census Bureau, American Community Survey (ACS)",
         tableauUrl:
           "https://public.tableau.com/views/PercentageofHouseholdswithMonthlyHousingCostLessthan1500/PercentageofHouseholdswithMonthlyHousingCostsLessthan1500?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link",
       },
@@ -169,8 +176,8 @@ const CATEGORY_CONFIG = {
         id: "hou-5",
         title: "Ratio of Housing Costs to Income",
         summary:
-          "Trend over time for housing affordability relative to income.",
-        source: "Source: Tableau Public",
+          "The ratio of housing costs to income measures the share of household income devoted to housing expenses. It is widely used to assess housing affordability, with higher ratios indicating greater cost burden. Households spending a large portion of income on housing may face tradeoffs with other essential expenses such as healthcare, childcare, or transportation. Users should expect this indicator to highlight affordability differences across regions and income groups.",
+        source: "U.S. Census Bureau, American Community Survey (ACS)",
         tableauUrl:
           "https://public.tableau.com/views/RatioofHousingCoststoIncome/Sheet1?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link",
       },
@@ -180,14 +187,15 @@ const CATEGORY_CONFIG = {
   health: {
     title: "Health",
     overview:
-      "Sample overview content for Health. This will be customized later per category.",
+      "This section highlights key trends over the past decade and compares Tampa Bay with peer regions to understand how outcomes are changing over time.",
     indicators: [
       {
         id: "hea-1",
         title: "Premature Death",
         summary:
-          "Trend over time in premature death rates, reflecting population health outcomes.",
-        source: "Source: Tableau Public",
+          "Premature death measures deaths occurring before a specified age threshold and is commonly used as an indicator of overall population health and preventable mortality. This measure captures the combined effects of health behaviors, access to care, environmental conditions, and socioeconomic factors. Higher rates of premature death often signal underlying health disparities or barriers to healthcare access. Users should expect this indicator to change gradually over time rather than fluctuate sharply year to year.",
+        source:
+          "Centers for Disease Control and Prevention (CDC), National Center for Health Statistics",
         tableauUrl:
           "https://public.tableau.com/views/PrematureDeath_17653009774010/TrendoverTime?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link",
       },
@@ -195,8 +203,8 @@ const CATEGORY_CONFIG = {
         id: "hea-2",
         title: "Uninsured Rate (Under 65)",
         summary:
-          "Trend over time in the percentage of adults under age 65 without health insurance.",
-        source: "Source: Tableau Public",
+          "The uninsured rate for individuals under age 65 measures the share of the population without health insurance coverage, excluding those typically eligible for Medicare. This indicator is widely used to assess access to healthcare and financial protection against medical costs. Higher uninsured rates may be associated with delayed care, unmet health needs, and greater financial risk. Users should expect variation across regions based on employment patterns, income levels, and state policy environments.",
+        source: "U.S. Census Bureau, American Community Survey (ACS)",
         tableauUrl:
           "https://public.tableau.com/views/PercentageofUninsuredAdultsAge65/TrendoverTime?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link",
       },
@@ -204,8 +212,8 @@ const CATEGORY_CONFIG = {
         id: "hea-3",
         title: "HRSA Financial Assistance",
         summary:
-          "Comparison of Health Resources and Services Administration (HRSA) grant funding.",
-        source: "Source: Tableau Public",
+          "This indicator reflects the distribution of federal health-related financial assistance provided through HRSA programs. It offers insight into the level of support directed toward healthcare access, workforce development, and services for underserved populations. Higher levels of assistance may indicate greater healthcare needs or targeted investment in community health infrastructure. Users should interpret this measure as a signal of health system support rather than a direct outcome measure.",
+        source: "Health Resources and Services Administration (HRSA)",
         tableauUrl:
           "https://public.tableau.com/views/HRSA_17652870184860/HRSAGrant?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link",
       },
@@ -213,8 +221,8 @@ const CATEGORY_CONFIG = {
         id: "hea-4",
         title: "Deaths / Injury Due to Road Accidents",
         summary:
-          "Trend over time in deaths and injuries resulting from road accidents.",
-        source: "Source: Tableau Public",
+          "This indicator tracks fatalities and injuries resulting from road accidents and is commonly used as a measure of public safety and transportation risk. It reflects factors such as roadway conditions, traffic volume, driver behavior, and emergency response capacity. Higher rates may indicate safety challenges affecting daily mobility and quality of life. Users should expect this indicator to vary across regions and to change slowly over time.",
+        source: "National Highway Traffic Safety Administration (NHTSA) / CDC",
         tableauUrl:
           "https://public.tableau.com/views/accidentsWebsite/Sheet2?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link",
       },
@@ -222,8 +230,8 @@ const CATEGORY_CONFIG = {
         id: "hea-5",
         title: "Public Assistance Income / SNAP",
         summary:
-          "Comparison of households receiving public assistance or SNAP benefits.",
-        source: "Source: Tableau Public",
+          "This indicator measures the share of households receiving public assistance income, including Supplemental Nutrition Assistance Program (SNAP) benefits. It provides insight into economic hardship and reliance on safety net programs. Higher participation rates may reflect lower household incomes, higher living costs, or limited access to employment opportunities. Users should expect this indicator to be sensitive to broader economic conditions and policy changes.",
+        source: "U.S. Census Bureau, American Community Survey (ACS)",
         tableauUrl:
           "https://public.tableau.com/views/PercentageofHouseholdsReceivingPublicAssistanceIncome/PercentageofHouseholdswithPublicAssistanceIncome?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link",
       },
@@ -233,14 +241,15 @@ const CATEGORY_CONFIG = {
   demographics: {
     title: "Demographics",
     overview:
-      "Sample overview content for Demographics. This will be customized later per category.",
+      "This section highlights key trends over the past decade and compares Tampa Bay with peer regions to understand how outcomes are changing over time.",
     indicators: [
       {
         id: "dem-1",
         title: "Civic Engagement (Voting)",
         summary:
-          "Trend or comparative view of civic engagement measured through voting participation.",
-        source: "Source: Tableau Public",
+          "This indicator measures voter participation among the eligible population and is commonly used as a proxy for civic engagement. Higher voter participation may signal stronger civic connection and community involvement, while lower participation may reflect barriers to access, disengagement, or demographic differences. Voting rates vary widely across regions and demographic groups. Users should expect this indicator to change primarily during election cycles rather than year to year.",
+        source:
+          "U.S. Census Bureau, Current Population Survey (CPS) Voting and Registration Supplement",
         tableauUrl:
           "https://public.tableau.com/views/VotingWebsite/Sheet1?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link",
       },
@@ -248,8 +257,8 @@ const CATEGORY_CONFIG = {
         id: "dem-2",
         title: "Geographical Mobility by Poverty/Income (ACS B07012)",
         summary:
-          "Mobility patterns segmented by income/poverty group (bar-style comparison).",
-        source: "Source: Tableau Public",
+          "This indicator shows how residential mobility differs by poverty status and income level, capturing whether households moved within the past year. Higher mobility among lower-income households can indicate housing instability, while lower mobility among higher-income households often reflects greater residential stability. This measure helps users understand patterns of stability and displacement within a region. Users should expect gradual changes rather than sharp short-term shifts.",
+        source: "U.S. Census Bureau, American Community Survey (ACS)",
         tableauUrl:
           "https://public.tableau.com/views/GeographicalMobilitybyPoverty/Sheet1?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link",
       },
@@ -257,8 +266,8 @@ const CATEGORY_CONFIG = {
         id: "dem-3",
         title: "Migration by Income Level (High-Income Migration to an MSA)",
         summary:
-          "Trend over time in high-income migration into the metro area.",
-        source: "Source: Tableau Public",
+          "This indicator tracks net migration flows by income level, focusing on the movement of higher-income households into or out of a metropolitan area. It is commonly used to assess regional attractiveness, economic opportunity, and tax base dynamics. Net in-migration of higher-income households may reflect job growth, quality-of-life factors, or housing market conditions. Users should interpret this measure in the context of broader economic and housing trends.",
+        source: "Internal Revenue Service (IRS), Statistics of Income (SOI) Migration Data",
         tableauUrl:
           "https://public.tableau.com/views/B07010_High_Income_migrants/High-IncomeMigrantsTrend?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link",
       },
@@ -266,8 +275,8 @@ const CATEGORY_CONFIG = {
         id: "dem-4",
         title: "Poverty by Age Groups (Children / Older Adults)",
         summary:
-          "Two related views: poverty among children (0–17) and poverty among older adults.",
-        source: "Source: Tableau Public",
+          "This indicator measures poverty rates for children and older adults, highlighting economic vulnerability at different life stages. Child poverty is often linked to household income, employment stability, and access to support services, while poverty among older adults is closely tied to fixed incomes and retirement resources. Comparing age groups helps users identify where economic risk is most concentrated. Users should expect these rates to change gradually over time.",
+        source: "U.S. Census Bureau, American Community Survey (ACS)",
         tableauUrls: [
           "https://public.tableau.com/views/PovertyStatusAmongChildrenAges017/Sheet1?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link",
           "https://public.tableau.com/views/PovertyRateAmongOlderAdults/Sheet4?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link",
@@ -277,17 +286,20 @@ const CATEGORY_CONFIG = {
         id: "dem-5",
         title: "Taxpaying Population",
         summary:
-          "Trend or comparative view of the taxpaying population over time.",
-        source: "Source: Tableau Public",
+          "This indicator reflects the number of tax filers within a region and serves as a proxy for the size of the taxpaying population. It provides insight into population scale, workforce participation, and the breadth of the local tax base. Changes in the number of filers may reflect migration, employment trends, or demographic shifts. Users should expect this measure to be relatively stable, with changes occurring gradually over time.",
+        source: "Internal Revenue Service (IRS), Statistics of Income (SOI)",
         tableauUrl:
           "https://public.tableau.com/views/TaxpayersWebsite/Sheet1?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link",
       },
     ],
   },
 
+  // NOTE: These categories were not included in the provided “Indicator Overview” doc,
+  // so their existing summaries/sources are kept as-is to avoid introducing assumptions.
   income: {
     title: "Income",
-    overview: "Sample overview content for Income.",
+    overview:
+      "Income trends shape economic opportunity across the Tampa Bay region. These indicators track inequality, earnings, and cost pressures over the past decade, and compare Tampa Bay with peer metros.",
     indicators: [
       {
         id: "inc-1",
@@ -313,10 +325,10 @@ const CATEGORY_CONFIG = {
         source: "Source: Tableau Public",
         tableauUrl:
           "https://public.tableau.com/views/PerCapitaPersonalIncome_17651698300470/TrendOverTime?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link",
-      },{
+      },
+      {
         id: "inc-4",
-        title:
-          "Households Receiving Social Security Income (Past 12 Months)",
+        title: "Households Receiving Social Security Income (Past 12 Months)",
         summary:
           "Percentage of households receiving Social Security income in the past 12 months.",
         source: "Source: Tableau Public",
@@ -335,6 +347,7 @@ const CATEGORY_CONFIG = {
       },
     ],
   },
+
   transportation: {
     title: "Transportation",
     overview:
@@ -360,7 +373,7 @@ const CATEGORY_CONFIG = {
       },
     ],
   },
-  
+
   poverty: {
     title: "Poverty",
     overview:
@@ -368,8 +381,7 @@ const CATEGORY_CONFIG = {
     indicators: [
       {
         id: "pov-1",
-        title:
-          "Population Below 200% of the Poverty Level (Past 12 Months)",
+        title: "Population Below 200% of the Poverty Level (Past 12 Months)",
         summary:
           "Percentage of the population with income below 200% of the federal poverty level, shown as a trend over time.",
         source: "Source: Tableau Public",
@@ -386,41 +398,20 @@ const CATEGORY_CONFIG = {
           "https://public.tableau.com/views/Black-WhitePovertyRateGap/Black-WhitePovertyRateGap?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link",
       },
     ],
-  },  
+  },
 };
-
-function ReportsLanding() {
-  return (
-    <div className="reports-landing">
-      <header className="reports-landing-header">
-        <h1 className="reports-landing-title">Start Exploring</h1>
-        <p className="reports-landing-subtitle">
-          Select a topic to explore trends, comparisons, and insights.
-        </p>
-      </header>
-
-      <div className="reports-landing-grid">
-        {TOPICS.map((t) => (
-          <NavLink
-            key={t.slug}
-            to={`/reports/${t.slug}`}
-            className="reports-landing-tile"
-          >
-            {t.label}
-          </NavLink>
-        ))}
-      </div>
-    </div>
-  );
-}
 
 function CategoryReport({ topic }) {
   const config = CATEGORY_CONFIG[topic];
+  const [showAll, setShowAll] = useState(false);
+
+  const indicators = config?.indicators || [];
+  const visibleIndicators = showAll ? indicators : indicators.slice(0, 2);
 
   return (
     <>
       <div className="report-top">
-        <h1 className="report-title-plain">{config.title} Report</h1>
+        <h1 className="report-title-plain">{config.title}</h1>
         <p className="report-subtitle-plain">{DEFAULT_SUBTITLE}</p>
       </div>
 
@@ -428,59 +419,97 @@ function CategoryReport({ topic }) {
         <p className="overview-text">{config.overview}</p>
       </div>
 
-      <div className="indicator-grid">
-        {(config.indicators || []).slice(0, 5).map((ind) => {
-          const hasMultiple = Array.isArray(ind.tableauUrls);
+      <div className="indicator-section">
+        <div className="indicator-grid">
+          {visibleIndicators.map((ind) => {
+            // Support both tableauUrls and tableauUrl array (your current config uses both styles)
+            const urls = Array.isArray(ind.tableauUrls)
+              ? ind.tableauUrls
+              : Array.isArray(ind.tableauUrl)
+              ? ind.tableauUrl
+              : ind.tableauUrl
+              ? [ind.tableauUrl]
+              : [];
 
-          return (
-            <section key={ind.id} className="indicator-panel">
-              <header className="indicator-header">
-                <h3 className="indicator-title">{ind.title}</h3>
-              </header>
+            const firstUrl = urls[0] || "";
 
-              <div className="indicator-chart">
-                {hasMultiple ? (
-                  <div style={{ display: "grid", gap: 16 }}>
-                    {ind.tableauUrls.map((u, idx) => (
+            return (
+              <section key={ind.id} className="indicator-panel">
+                <header className="indicator-header">
+                  <h3 className="indicator-title">{ind.title}</h3>
+                  {ind.summary && (
+                    <p className="indicator-subtitle">{ind.summary}</p>
+                  )}
+                </header>
+
+                <div className="indicator-chart-frame">
+                  <div className="indicator-chart">
+                    {urls.length > 1 ? (
+                      <div style={{ display: "grid", gap: 16 }}>
+                        {urls.map((u, idx) => (
+                          <TableauViz
+                            key={`${ind.id}-${idx}`}
+                            url={u}
+                            height={520}
+                            toolbar={false}
+                            tabs={false}
+                          />
+                        ))}
+                      </div>
+                    ) : urls.length === 1 ? (
                       <TableauViz
-                        key={`${ind.id}-${idx}`}
-                        url={u}
+                        url={urls[0]}
                         height={520}
                         toolbar={false}
                         tabs={false}
                       />
-                    ))}
+                    ) : (
+                      <div className="indicator-chart-placeholder">
+                        Tableau URL not set yet (placeholder for demo)
+                      </div>
+                    )}
                   </div>
-                ) : ind.tableauUrl ? (
-                  <TableauViz
-                    url={ind.tableauUrl}
-                    height={520}
-                    toolbar={false}
-                    tabs={false}
-                  />
-                ) : (
-                  <div className="indicator-chart-placeholder">
-                    Tableau URL not set yet (placeholder for demo)
-                  </div>
-                )}
-              </div>
+                </div>
 
-              <div className="indicator-meta">
-                <p className="indicator-summary">{ind.summary}</p>
+                <div className="indicator-meta">
+                  <p className="indicator-label">
+                    <span className="indicator-label-tag">Source</span>
+                    {ind.source}
+                  </p>
 
-                <p className="indicator-label">
-                  <span className="indicator-label-tag">Source</span>
-                  {ind.source}
-                </p>
+                  <p className="indicator-label">
+                    <span className="indicator-label-tag">Date range</span>
+                    {STANDARD_DATE_RANGE}
+                  </p>
 
-                <p className="indicator-label">
-                  <span className="indicator-label-tag">Date range</span>
-                  {STANDARD_DATE_RANGE}
-                </p>
-              </div>
-            </section>
-          );
-        })}
+                  {firstUrl && (
+                    <a
+                      className="indicator-action"
+                      href={firstUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      title="Open visualization in Tableau"
+                    >
+                      Open in Tableau ↗
+                    </a>
+                  )}
+                </div>
+              </section>
+            );
+          })}
+        </div>
+
+        {indicators.length > 2 && (
+          <div className="show-more-wrap">
+            <button
+              className="show-more-btn"
+              type="button"
+              onClick={() => setShowAll((v) => !v)}
+            >
+              {showAll ? "Show fewer indicators" : "Show more indicators"}
+            </button>
+          </div>
+        )}
       </div>
     </>
   );
@@ -491,8 +520,10 @@ export default function Reports() {
   const topic = useMemo(() => (topicParam || "").toLowerCase(), [topicParam]);
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
-  if (!topicParam) return <ReportsLanding />;
-  if (!CATEGORY_CONFIG[topic]) return <ReportsLanding />;
+  // ✅ Default behavior you want:
+  // Visiting /reports should open Income report (no landing grid)
+  if (!topicParam) return <Navigate to="/reports/income" replace />;
+  if (!CATEGORY_CONFIG[topic]) return <Navigate to="/reports/income" replace />;
 
   return (
     <div className="reports-page">
@@ -509,23 +540,32 @@ export default function Reports() {
 
           {sidebarOpen && (
             <nav className="sidebar-nav">
-              {TOPICS.map((t) => (
-                <NavLink
-                  key={t.slug}
-                  to={`/reports/${t.slug}`}
-                  className={({ isActive }) =>
-                    `sidebar-link ${isActive ? "active" : ""}`
-                  }
-                >
-                  {t.label}
-                </NavLink>
-              ))}
+              <div className="sidebar-section-title highlight">
+                Explore Topics
+              </div>
+
+              {[...TOPICS]
+                .sort((a, b) => a.label.localeCompare(b.label))
+                .map((t) => (
+                  <NavLink
+                    key={t.slug}
+                    to={`/reports/${t.slug}`}
+                    className={({ isActive }) =>
+                      `sidebar-link ${isActive ? "active" : ""}`
+                    }
+                  >
+                    {t.label}
+                  </NavLink>
+                ))}
+
             </nav>
           )}
         </aside>
 
         <main className="reports-content">
-          <CategoryReport topic={topic} />
+          <div className="reports-content-inner">
+            <CategoryReport topic={topic} />
+          </div>
         </main>
       </div>
     </div>
