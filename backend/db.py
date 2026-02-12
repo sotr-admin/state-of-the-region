@@ -1,6 +1,7 @@
 import os
 import time
 import struct
+from pathlib import Path
 
 import pyodbc
 from dotenv import load_dotenv
@@ -9,6 +10,7 @@ from azure.identity import DefaultAzureCredential, InteractiveBrowserCredential,
 SQL_COPT_SS_ACCESS_TOKEN = 1256
 
 load_dotenv()
+#load_dotenv(dotenv_path=Path(__file__).resolve().parent / ".env")
 
 # --- Azure AD token caching (prevents repeated login popups) ---
 _cache_opts = TokenCachePersistenceOptions(name="sotr-token-cache")

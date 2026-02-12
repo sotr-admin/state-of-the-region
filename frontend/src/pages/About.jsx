@@ -23,7 +23,7 @@ const studentVolunteers = {
       image: "/assets/Photos/person.jpg",
     },
     {
-      name: "Sohan Ladarpret Vasudeva",
+      name: "Sohan Ladarpet Vasudeva",
       role: "MS AIBA 2026",
       image: "/assets/Photos/person.jpg",
     },

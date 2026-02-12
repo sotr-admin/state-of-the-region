@@ -29,20 +29,20 @@ def b07012_series(
         g.state_name,
         y.year,
         (
-            COALESCE(f.total_moved_within_same_county_below_100_percent_of_the_poverty_level, 0)
-          + COALESCE(f.total_moved_from_different_county_within_same_state_below_100_percent_of_the_poverty_level, 0)
-          + COALESCE(f.total_moved_from_different_state_below_100_percent_of_the_poverty_level, 0)
-          + COALESCE(f.total_moved_from_abroad_below_100_percent_of_the_poverty_level, 0)
+            COALESCE(f.Moved_within_same_county_Below_100_percent_of_the_poverty_level, 0)
+        + COALESCE(f.Moved_from_different_county_within_same_state_Below_100_percent_of_the_poverty_level, 0)
+        + COALESCE(f.Moved_from_different_state_Below_100_percent_of_the_poverty_level, 0)
+        + COALESCE(f.Moved_from_abroad_Below_100_percent_of_the_poverty_level, 0)
         ) * 100.0
-        / NULLIF(f.total_below_100_percent_of_the_poverty_level, 0) AS mobility_rate_below_poverty
+        / NULLIF(f.Below_100_percent_of_the_poverty_level, 0) AS mobility_rate_below_poverty
     FROM dbo.fact_county_B07012 f
     JOIN dbo.dim_geo g
-      ON f.county_fips = g.county_fips
+    ON f.county_fips = g.county_fips
     JOIN dbo.dim_year y
-      ON f.year_id = y.year_id
+    ON f.year_id = y.year_id
     WHERE f.county_fips IN ({placeholders})
-      AND y.year BETWEEN ? AND ?
-      AND f.total_below_100_percent_of_the_poverty_level IS NOT NULL
+    AND y.year BETWEEN ? AND ?
+    AND f.Below_100_percent_of_the_poverty_level IS NOT NULL
     ORDER BY g.state_name, g.county_name, y.year;
     """
 
@@ -169,21 +169,21 @@ def b17009_series(
         g.state_name,
         y.year,
         CASE
-          WHEN f.total_income_in_the_past_12_months_below_the_poverty_level IS NULL
-               OR f.total_income_in_the_past_12_months_below_the_poverty_level = 0
-               OR f.total_income_in_the_past_12_months_below_the_poverty_level_worked_fulltime_yearround IS NULL
-          THEN NULL
-          ELSE
-            100.0 * f.total_income_in_the_past_12_months_below_the_poverty_level_worked_fulltime_yearround
-            / f.total_income_in_the_past_12_months_below_the_poverty_level
+        WHEN f.Income_in_the_past_12_months_below_the_poverty_level IS NULL
+            OR f.Income_in_the_past_12_months_below_the_poverty_level = 0
+            OR f.Income_in_the_past_12_months_below_the_poverty_level_Worked_full_time_year_round IS NULL
+        THEN NULL
+        ELSE
+            100.0 * f.Income_in_the_past_12_months_below_the_poverty_level_Worked_full_time_year_round
+            / f.Income_in_the_past_12_months_below_the_poverty_level
         END AS below_poverty_worked_fulltime_yearround_pct
     FROM dbo.fact_county_B17009 f
     JOIN dbo.dim_geo g
-      ON f.county_fips = g.county_fips
+    ON f.county_fips = g.county_fips
     JOIN dbo.dim_year y
-      ON f.year_id = y.year_id
+    ON f.year_id = y.year_id
     WHERE f.county_fips IN ({placeholders})
-      AND y.year BETWEEN ? AND ?
+    AND y.year BETWEEN ? AND ?
     ORDER BY g.state_name, g.county_name, y.year;
     """
 
