@@ -25,7 +25,7 @@ jobs:
       - name: Install and build frontend
         working-directory: frontend
         env:
-          REACT_APP_API_BASE_URL: "https://mumasotrprodwa-erhxhycngfc5gsfw.eastus-01.azurewebsites.net"
+          REACT_APP_API_BASE_URL: "mumasotrprodwa311-geg9e3aaajf7ase9.eastus-01.azurewebsites.net"
         run: |
           npm ci
           npm run build
@@ -68,5 +68,6 @@ jobs:
           slot-name: "Production"
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_SOTR_FRONTEND_WEB }}
           package: site.zip
+
 
 
