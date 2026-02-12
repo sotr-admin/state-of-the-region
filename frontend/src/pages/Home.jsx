@@ -110,9 +110,13 @@ const Home = () => {
   };
 
   const handleViewReport = () => {
-    // Change this to your real report link when ready
-    window.open("/reports", "_blank", "noopener,noreferrer");
+    window.open(
+      "https://www.usf.edu/business/state-of-the-region/index.aspx",
+      "_blank",
+      "noopener,noreferrer"
+    );
   };
+  
 
   return (
     <div className="home-container">
@@ -124,8 +128,7 @@ const Home = () => {
             <h1>Shaping Tomorrow Through Data Today</h1>
 
             <span className="hero-subtext">
-              Helping policymakers, researchers, business leaders, and residents explore comprehensive indicators across income, employment,
-              education, housing, transportation, health, and more.
+            Built to support evidence-based policy, regional planning, and informed decision-making.
             </span>
 
             {/* ✅ subtle divider line under subtitle */}
@@ -134,19 +137,10 @@ const Home = () => {
             {/* NEW wrapper */}
             <div className="hero-content">
               <p className="home-intro-text">
-                The State of the Region brings together trusted data, interactive
-                dashboards, and peer metro comparisons to help policymakers,
-                researchers, business leaders, and residents understand how the
-                Tampa Bay region is changing — and where targeted action can make
-                the greatest impact.
+              An interactive regional dashboard with nationwide county comparisons, helping policymakers, researchers, business leaders, and residents explore economic, demographic, and quality-of-life indicators — from income and employment to education, housing, transportation, and health — to better understand how communities are changing over time
               </p>
-
               <p className="home-intro-text">
-                The State of the Region brings together trusted data, interactive
-                dashboards, and peer metro comparisons to help policymakers,
-                researchers, business leaders, and residents understand how the
-                Tampa Bay region is changing — and where targeted action can make
-                the greatest impact.
+              The State of the Region dashboard brings together trusted national and local data, interactive visualizations, and peer comparisons so users can explore and compare key measures of economic performance, population change, and community wellbeing across U.S. counties. Whether you’re a community leader evaluating where targeted action could boost opportunity, a researcher analyzing trends, a business leader scouting new markets, or a resident considering where to live and work, this tool makes it easier to see how communities are growing, changing, and stacking up against similar regions.
               </p>
             </div>
           </div>
@@ -155,7 +149,7 @@ const Home = () => {
           <section className="explore-inline" aria-label="Start Exploring">
             <div className="explore-hero">
               <div className="inline-header">
-                <h2 className="inline-title">Start Exploring</h2>
+                <h2 className="inline-title">Start Exploring Tampa MSA</h2>
                 <p className="inline-subtitle">
                   Select a topic to explore trends, comparisons, and insights.
                 </p>
@@ -226,10 +220,7 @@ const Home = () => {
           <div className="insight-section">
             <h2>Tampa Bay Data Insights</h2>
             <p>
-              A companion piece to the Regional Competitiveness Report, the Tampa
-              Bay E-Insights Report is a multi-dimensional quantitative assessment
-              of the region’s current economic health produced by the Muma College
-              of Business at the University of South Florida.
+            A companion piece to the Regional Competitiveness Report, the Tampa Bay E-Insights Report is a multi-dimensional quantitative assessment of the region’s economic health, produced by the Muma College of Business at the University of South Florida.
             </p>
             <button
               className="download-btn"
@@ -256,12 +247,12 @@ const Home = () => {
             <h2 className="subscribe-title">Get State of the Region updates</h2>
             <p className="subscribe-subtitle">
               Subscribe for new indicators, dashboard releases, report highlights,
-              and key regional insights from USF Muma.
+              and key regional insights from University of South Florida Muma College of Business.
             </p>
 
             <ul className="subscribe-bullets">
               <li>New indicators & trend dashboards</li>
-              <li>Report drops & executive summaries</li>
+              <li>Report drops and executive summaries</li>
               <li>Events, briefings, and data stories</li>
             </ul>
           </div>
@@ -320,7 +311,7 @@ const Home = () => {
               </button>
 
               <p className="subscribe-privacy">
-                By subscribing, you agree to receive emails from USF Muma’s State
+                By subscribing, you agree to receive emails from Univesity of South Florida Muma College of Business’s State
                 of the Region. You can unsubscribe anytime.
               </p>
             </form>
