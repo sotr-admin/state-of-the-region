@@ -8,6 +8,7 @@ from routers.housing import router as housing_router
 from routers.education import router as education_router
 from routers.employment import router as employment_router
 from routers.poverty import router as poverty_router
+from routers.demographics import router as demographics_router
 from routers.availability import router as availability_router
 
 
@@ -35,4 +36,5 @@ app.include_router(housing_router)
 app.include_router(education_router)
 app.include_router(employment_router)
 app.include_router(poverty_router)
+app.include_router(demographics_router)
 app.include_router(availability_router)

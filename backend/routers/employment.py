@@ -28,18 +28,18 @@ def b08006_series(
         g.county_name,
         g.state_name,
         y.year,
-        (f.total_public_transportation_excluding_taxicab * 100.0)
-            / NULLIF(f.total, 0) AS public_transit_share_pct
+        (f.Public_transportation * 100.0)
+            / NULLIF(f.Total, 0) AS public_transit_share_pct
     FROM dbo.fact_county_B08006 f
     JOIN dbo.dim_geo g
-      ON f.county_fips = g.county_fips
+    ON f.county_fips = g.county_fips
     JOIN dbo.dim_year y
-      ON f.year_id = y.year_id
+    ON f.year_id = y.year_id
     WHERE f.county_fips IN ({placeholders})
-      AND y.year BETWEEN ? AND ?
-      AND f.total IS NOT NULL
-      AND f.total > 0
-      AND f.total_public_transportation_excluding_taxicab IS NOT NULL
+    AND y.year BETWEEN ? AND ?
+    AND f.Total IS NOT NULL
+    AND f.Total > 0
+    AND f.Public_transportation IS NOT NULL
     ORDER BY g.state_name, g.county_name, y.year;
     """
 
