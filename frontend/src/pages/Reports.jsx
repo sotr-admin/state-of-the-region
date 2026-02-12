@@ -18,6 +18,11 @@ const STANDARD_DATE_RANGE = "Last 10 complete years (2014–2023)";
 const DEFAULT_SUBTITLE =
   "Explore how trends have changed over time and how the Tampa Bay region compares with peer metros.";
 
+// ✅ Shared “Reports” context paragraph (shown for every category)
+// Option 1 placement: directly below subtitle as a subtle info strip
+const REPORTS_CONTEXT =
+  "The Reports section features curated analyses of the Tampa Bay Metropolitan Statistical Area (MSA), drawn from the State of the Region Tampa Bay E-Insights Report. These Tableau visualizations provide a structured snapshot of key trends and peer comparisons. Unlike the Policy Playground, these reports are fixed in scope and are not dynamically updated or customizable for other regions.";
+
 const CATEGORY_CONFIG = {
   employment: {
     title: "Employment",
@@ -294,8 +299,6 @@ const CATEGORY_CONFIG = {
     ],
   },
 
-  // NOTE: These categories were not included in the provided “Indicator Overview” doc,
-  // so their existing summaries/sources are kept as-is to avoid introducing assumptions.
   income: {
     title: "Income",
     overview:
@@ -337,8 +340,7 @@ const CATEGORY_CONFIG = {
       },
       {
         id: "inc-5",
-        title:
-          "Households Receiving Public Assistance or SNAP (Past 12 Months)",
+        title: "Households Receiving Public Assistance or SNAP (Past 12 Months)",
         summary:
           "Percentage of households receiving public assistance income or food stamps (SNAP).",
         source: "Source: Tableau Public",
@@ -413,6 +415,11 @@ function CategoryReport({ topic }) {
       <div className="report-top">
         <h1 className="report-title-plain">{config.title}</h1>
         <p className="report-subtitle-plain">{DEFAULT_SUBTITLE}</p>
+      </div>
+
+      {/* ✅ Option 1: subtle “About these reports” strip directly under subtitle */}
+      <div className="reports-context-strip" role="note" aria-label="About these reports">
+        <p className="reports-context-text">{REPORTS_CONTEXT}</p>
       </div>
 
       <div className="overview-plain">
@@ -520,7 +527,7 @@ export default function Reports() {
   const topic = useMemo(() => (topicParam || "").toLowerCase(), [topicParam]);
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
-  // ✅ Default behavior you want:
+  // ✅ Default behavior:
   // Visiting /reports should open Income report (no landing grid)
   if (!topicParam) return <Navigate to="/reports/income" replace />;
   if (!CATEGORY_CONFIG[topic]) return <Navigate to="/reports/income" replace />;
@@ -557,7 +564,6 @@ export default function Reports() {
                     {t.label}
                   </NavLink>
                 ))}
-
             </nav>
           )}
         </aside>

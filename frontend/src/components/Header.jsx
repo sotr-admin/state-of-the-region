@@ -17,11 +17,18 @@ const Header = () => {
   return (
     <header className={`header ${scrolled ? "scrolled" : ""}`}>
       <div className="logo-group">
-        <img src="/assets/MumaLogo.png" alt="USF Logo" className="logo-img" />
-        <span className="logo-text">STATE OF THE REGION</span>
-      </div>
+  <div className="logo-text">
+    <div className="logo-line1">
+      University of South Florida Regional Competitiveness Dashboard
+    </div>
+    <div className="logo-line2">
+      A STATE OF THE REGION INITIATIVE
+    </div>
+  </div>
+</div>
 
-      {/* mobile menu toggle */}
+
+
       <button
         className="nav-toggle"
         aria-label="Toggle navigation menu"
@@ -35,7 +42,6 @@ const Header = () => {
         <span className="bar" />
       </button>
 
-      {/* main nav (left) */}
       <nav id="primary-menu" className={`nav ${open ? "open" : ""}`}>
         <NavLink to="/" end onClick={closeMenu}>Home</NavLink>
         <NavLink to="/reports" onClick={closeMenu}>Reports</NavLink>

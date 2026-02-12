@@ -10,7 +10,7 @@ const teamLeads = [
   },
   {
     name: "Dr. Shivendu Shivendu",
-    image: "/assets/Photos/person.jpg",
+    image: "/assets/Photos/shivendu-shivendu.jpg",
     link: "https://www.usf.edu/business/about/bios/shivendu-shivendu.aspx",
   },
 ];
@@ -18,14 +18,14 @@ const teamLeads = [
 const studentVolunteers = {
   2025: [
     {
-      name: "Shlok Nandkishor Goud",
+      name: "Shlok Goud",
       role: "MS AIBA 2026",
-      image: "/assets/Photos/person.jpg",
+      image: "/assets/Photos/shlok_goud.jpg",
     },
     {
-      name: "Sohan Ladarpet Vasudeva",
+      name: "Sohan Vasudeva",
       role: "MS AIBA 2026",
-      image: "/assets/Photos/person.jpg",
+      image: "/assets/Photos/sohan.jpg",
     },
     {
       name: "Sonal Shreya",
@@ -35,39 +35,39 @@ const studentVolunteers = {
     {
       name: "Aditi Malik",
       role: "MS AIBA 2027",
-      image: "/assets/Photos/person.jpg",
+      image: "/assets/Photos/aditi-malik.jpg",
     },
     {
-      name: "Venkata Satya Lokesh Adda",
+      name: "Venkata Lokesh Adda",
       role: "MS AIBA 2026",
-      image: "/assets/Photos/person.jpg",
+      image: "/assets/Photos/lokesh.jpg",
     },
     {
       name: "Jacqueline Lapacek",
       role: "MS AIBA 2026",
-      image: "/assets/Photos/person.jpg",
+      image: "/assets/Photos/jackie.jpg",
     },
   ],
   2024: [
     {
       name: "Nikita Gill",
       role: "MS AIBA 2025",
-      image: "/assets/Photos/person.jpg",
+      image: "/assets/Photos/nikita-gill.jpg",
     },
     {
       name: "Nidhi Falak",
       role: "MS AIBA 2025",
-      image: "/assets/Photos/person.jpg",
+      image: "/assets/Photos/nidhi-falak.jpg",
     },
     {
-      name: "Alvaro Montoya Ruiz",
+      name: "Alvaro Ruiz",
       role: "MS AIBA 2026",
-      image: "/assets/Photos/person.jpg",
+      image: "/assets/Photos/alvaro-montoya-ruiz.jpg",
     },
     {
-      name: "Priyanka Jammu",
+      name: "Priyanka ",
       role: "MS AIBA 2026",
-      image: "/assets/Photos/person.jpg",
+      image: "/assets/Photos/priyanka-jammu.jpg",
     },
   ],
 };
@@ -90,23 +90,23 @@ const About = () => {
 
           <p className="about-intro-text">
             <strong>State of the Region</strong> is an interactive, data-driven
-            platform built to help communities better understand their economic,
-            social, and demographic standing within a broader national landscape.
-            The initiative began as a regional benchmarking tool for the Tampa Bay
-            area but has since evolved into a comprehensive resource that enables
-            comparisons across metropolitan statistical areas (MSAs), counties, and
-            states throughout the United States.
+            platform designed to help communities understand their economic,
+            social, and demographic standing within a broader national context.
+            Originally developed as a regional benchmarking tool for the Tampa Bay
+            area, the initiative has evolved into a comprehensive resource that
+            supports comparisons across metropolitan statistical areas (MSAs),
+            counties, and states throughout the United States.
             <br />
             <br />
             By consolidating high-quality data from trusted national sources and
-            presenting it through clear visualizations, the platform empowers
-            users— including policymakers, business leaders, researchers, students,
-            and residents— to explore trends, identify opportunities, and make
-            informed decisions. Whether examining workforce dynamics, housing
-            affordability, public health measures, or economic competitiveness,{" "}
-            <strong>State of the Region</strong> provides the context needed to
-            understand how communities are performing today and how they are
-            evolving over time.
+            presenting it through clear, interactive visualizations, the platform
+            empowers users—including policymakers, business leaders, researchers,
+            students, and residents—to explore trends, identify opportunities,
+            and support informed decision-making. Whether examining workforce
+            dynamics, housing affordability, public health measures, or economic
+            competitiveness, State of the Region provides essential context for
+            understanding how communities are performing today and how they are
+            changing over time.
           </p>
         </div>
 
@@ -129,20 +129,20 @@ const About = () => {
             {openSection === "vision" && (
               <div className="accordion-content">
                 <p>
-                  <strong>State of the Region</strong> was created with a simple
-                  but ambitious vision: to make regional data accessible,
-                  meaningful, and actionable for everyone. What began as a localized
-                  effort to understand Tampa Bay’s position among peer metropolitan
-                  areas has grown into a robust national platform capable of
-                  comparing cities, counties, and states across a wide range of
-                  economic and social indicators.
+                  The State of the Region report and dashboard were created with a
+                  simple but ambitious vision: to make regional data accessible,
+                  meaningful, and actionable. What began as a localized effort to
+                  understand Tampa Bay’s position among peer metropolitan areas has
+                  grown into a robust national platform that enables comparisons
+                  across cities, counties, and states using a wide range of economic
+                  and social indicators.
                 </p>
                 <p>
                   The project empowers communities by transforming complex datasets
-                  into clear, intuitive insights. Instead of isolated facts or
-                  one-off reports, State of the Region provides a structured view of
-                  performance, showing how each region fits into the broader
-                  national landscape.
+                  into clear, intuitive insights. Rather than presenting isolated
+                  facts or one-off reports, State of the Region offers a structured,
+                  comparative view of performance, helping users understand how
+                  regions relate to one another and how they are changing over time.
                 </p>
                 <p>
                   Our vision is to support better decision-making—whether for
@@ -150,8 +150,8 @@ const About = () => {
                   market opportunities, researchers studying long-term trends, or
                   residents seeking to better understand their communities. By
                   fostering transparency, accessibility, and continuous learning,
-                  State of the Region aims to become a trusted resource that
-                  elevates the conversation about regional growth, competitiveness,
+                  State of the Region aims to serve as a trusted resource that
+                  elevates conversations about regional growth, competitiveness,
                   and quality of life.
                 </p>
               </div>
@@ -176,33 +176,35 @@ const About = () => {
               <div className="accordion-content">
                 <p>
                   The <strong>State of the Region</strong> website is designed to
-                  be approachable for all users— from high school students and new
-                  analysts to experienced researchers and policy leaders. Every
-                  element of the platform emphasizes clarity, simplicity, and
-                  consistency so that meaningful insights can be discovered quickly
-                  without needing technical expertise.
+                  be approachable for a wide range of users—from high school
+                  students and new analysts to experienced researchers and policy
+                  leaders. Every element of the platform emphasizes clarity,
+                  simplicity, and consistency, making it possible to uncover
+                  meaningful insights quickly without requiring advanced technical
+                  expertise.
                 </p>
                 <p>
-                  The <strong>Policy Playground</strong> is the interactive
-                  centerpiece of the website. Users can experiment with categories,
-                  indicators, time ranges, and geographic comparisons to create
-                  customized charts and dashboards. This tool encourages exploration
-                  and helps users understand not only the current state of regions
-                  but how patterns have changed over time.
+                  The <strong>Policy Playground</strong> serves as the interactive
+                  centerpiece of the site. Users can explore categories, indicators,
+                  time ranges, and geographic comparisons to create customized
+                  charts and visualizations. This hands-on tool encourages
+                  experimentation and helps users understand not only current
+                  regional conditions, but how patterns and outcomes have evolved
+                  over time.
                 </p>
                 <p>
-                  For users looking for curated insights, the{" "}
+                  For users seeking for curated insights, the{" "}
                   <strong>Reports</strong> section provides category-specific
-                  summaries with clean, standardized visualizations. These pages
-                  offer a clear narrative of the most important trends and include
+                  summaries supported by clean, standardized visualizations. These
+                  pages present a clear narrative of key trends and include
                   comparisons between the Tampa Bay region, Florida, and national
                   benchmarks.
                 </p>
                 <p>
-                  Overall, the site is built to encourage curiosity, simplify
-                  complex data, and support informed decision-making—whether someone
-                  is analyzing housing markets, examining workforce trends, or
-                  exploring economic shifts across the nation.
+                  Overall, the site is built to spark curiosity, simplify complex
+                  data, and support informed decision making whether a user is
+                  analyzing housing markets, examining workforce trends, or
+                  exploring economic change across communities nationwide.
                 </p>
               </div>
             )}
@@ -225,29 +227,31 @@ const About = () => {
             {openSection === "data" && (
               <div className="accordion-content">
                 <p>
-                  <strong>State of the Region</strong> relies exclusively on
-                  reputable, well-documented, and publicly available data sources.
-                  These include the U.S. Census Bureau, the Bureau of Labor
-                  Statistics, the Bureau of Economic Analysis, Zillow, County Health
-                  Rankings, and other authoritative agencies that regularly publish
-                  standardized datasets.
+                  <strong>State of the Region</strong> dashboard relies exclusively
+                  on reputable, well-documented, and publicly available data
+                  sources. These include the U.S. Census Bureau, the Bureau of
+                  Labor Statistics, the Bureau of Economic Analysis, Zillow, County
+                  Health Rankings, and other authoritative agencies that regularly
+                  publish standardized datasets.
                 </p>
                 <p>
-                  Our data pipeline collects, validates, and processes incoming data
-                  on a recurring schedule. Automated scripts check for completeness,
-                  consistency, and anomalies before any values are added to the
-                  platform. While the internal database infrastructure is not
-                  publicly detailed for security reasons, the methodology
-                  prioritizes reliability, reproducibility, and transparency.
+                  The platform’s data pipeline collects, validates, and processes
+                  incoming data on a recurring schedule. Automated checks are used
+                  to assess completeness, consistency, and potential anomalies
+                  before values are incorporated into the system. While internal
+                  database infrastructure is not publicly detailed for security
+                  reasons, the methodology emphasizes reliability, reproducibility,
+                  and transparency in how data are sourced, prepared, and
+                  presented.
                 </p>
                 <p>
                   All visualizations on the platform follow a consistent design
-                  structure. Indicators share aligned time periods, geographic
-                  definitions, and formatting guidelines so users can compare
-                  information across categories without confusion. Future phases of
+                  framework. Indicators are aligned by time period, geographic
+                  definition, and formatting conventions so users can make
+                  comparisons across categories with confidence. Future phases of
                   the project will introduce clearer update schedules and expanded
-                  documentation as additional indicators and geographic regions are
-                  added.
+                  documentation as additional indicators and geographic coverage
+                  are added.
                 </p>
               </div>
             )}
@@ -270,25 +274,28 @@ const About = () => {
             {openSection === "team" && (
               <div className="accordion-content">
                 <p>
-                  <strong>State of the Region</strong> is the result of a sustained
-                  collaboration between faculty leaders and talented graduate
-                  students at the USF Muma College of Business. Faculty coordinators
-                  guide the vision, ensure methodological rigor, and support
-                  strategic direction for the project.
+                  <strong>State of the Region</strong> project is the result of
+                  sustained collaboration between faculty leaders and graduate
+                  students at the Muma College of Business at the University of
+                  South Florida. Faculty coordinators provide strategic direction,
+                  guide the overall vision, and ensure methodological rigor
+                  throughout the project.
                 </p>
                 <p>
-                  The student team contributes directly to the research, data
-                  preparation, visualization design, testing, and development of new
-                  platform features. Their work is central to keeping the website
-                  accurate, relevant, and user-friendly. Each student brings a
-                  unique background—from analytics and economics to software
-                  development and public policy—which strengthens the overall
-                  quality of the project.
+                  Graduate student contributors play a central role in the
+                  platform’s development, supporting research, data preparation,
+                  visualization design, testing, and the implementation of new
+                  features. Their work is essential to keeping the site accurate,
+                  relevant, and user-friendly. Team members bring diverse academic
+                  and professional backgrounds—from analytics and economics to
+                  software development and public policy—strengthening the depth
+                  and quality of the project.
                 </p>
                 <p>
-                  Together, the faculty and student contributors form a dynamic team
-                  committed to improving data accessibility and supporting informed
-                  decision-making across communities nationwide.
+                  Together, faculty and student contributors form a collaborative
+                  team committed to improving access to high-quality data and
+                  supporting informed decision-making across communities
+                  nationwide.
                 </p>
 
                 {/* Faculty */}
@@ -298,11 +305,7 @@ const About = () => {
                 <div className="team-leads">
                   {teamLeads.map((prof, idx) => (
                     <div key={idx} className="prof-card">
-                      <img
-                        src={prof.image}
-                        alt={prof.name}
-                        className="prof-img"
-                      />
+                      <img src={prof.image} alt={prof.name} className="prof-img" />
                       <h3 className="prof-name">{prof.name}</h3>
                     </div>
                   ))}
@@ -338,18 +341,10 @@ const About = () => {
         {/* ---- FOOTER NAVIGATION ---- */}
         <div className="about-nav-footer-wrapper">
           <div className="about-nav-footer">
-            <a href="/" className="about-nav-link">
-              Home
-            </a>
-            <a href="/reports" className="about-nav-link">
-              Reports
-            </a>
-            <a href="/policy-playground" className="about-nav-link">
-              Policy Playground
-            </a>
-            <a href="/about" className="about-nav-link">
-              About
-            </a>
+            <a href="/" className="about-nav-link">Home</a>
+            <a href="/reports" className="about-nav-link">Reports</a>
+            <a href="/policy-playground" className="about-nav-link">Policy Playground</a>
+            <a href="/about" className="about-nav-link">About</a>
           </div>
         </div>
       </div>

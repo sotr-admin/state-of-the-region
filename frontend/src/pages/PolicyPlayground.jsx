@@ -1016,8 +1016,7 @@ const PolicyPlayground = () => {
       <section className="policy-playground-hero">
         <h1 className="policy-playground-title">Policy Playground</h1>
         <p className="policy-playground-subtitle">
-          Explore key indicators, compare peer counties, and create compelling
-          visuals to inform decision-making.
+          Explore and compare economic, demographic, and quality-of-life indicators across US regions. The Policy Playground lets users select up to three counties, visualize trends, and generate clear, data-driven insights to support policy analysis, planning, and strategic decision-making.
         </p>
       </section>
 
