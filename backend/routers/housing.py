@@ -93,16 +93,16 @@ def b11016_series(
         g.county_name,
         g.state_name,
         y.year,
-        (f.Family_households * 100.0 / NULLIF(f.Total, 0)) AS family_households_pct
+        (f.family_households * 100.0 / NULLIF(f.total, 0)) AS family_households_pct
     FROM dbo.fact_county_B11016 f
     JOIN dbo.dim_geo g
-    ON f.county_fips = g.county_fips
+        ON f.county_fips = g.county_fips
     JOIN dbo.dim_year y
-    ON f.year_id = y.year_id
+        ON f.year_id = y.year_id
     WHERE f.county_fips IN ({placeholders})
     AND y.year BETWEEN ? AND ?
-    AND f.Total IS NOT NULL
-    AND f.Family_households IS NOT NULL
+    AND f.total IS NOT NULL
+    AND f.family_households IS NOT NULL
     ORDER BY g.state_name, g.county_name, y.year;
     """
 
