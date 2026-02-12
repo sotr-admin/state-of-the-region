@@ -35,7 +35,7 @@ const categories = [
   { value: "income", label: "Income" },
   { value: "employment", label: "Employment" },
   { value: "housing", label: "Housing" },
-  //{ value: "demographics", label: "Demographics" },
+  { value: "demographics", label: "Demographics" },
   { value: "education", label: "Education" },
   { value: "poverty", label: "Poverty" },
   //{ value: "transportation", label: "Transportation" },
@@ -69,7 +69,7 @@ const indicators = {
   demographics: [
     { value: "B07201", label: "Residential Mobility Rate" },
     { value: "B07402", label: "Median Age of Interstate Movers" },
-    { value: "B07007", label: "Residents Born Outside the U.S. (%)" },
+    { value: "B07007", label: "Residents Born Outside the U.S." },
   ],
   education: [
     { value: "B15003", label: "Educational attainment: Bachelor’s or Higher" },
