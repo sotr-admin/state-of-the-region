@@ -5,7 +5,7 @@ import USAMap from "./USAMap"; // reuse the same map as Home
 const teamLeads = [
   {
     name: "Dr. Manish Agrawal",
-    image: "/assets/Photos/person.jpg",
+    image: "/assets/Photos/Prof_Manish.png",
     link: "https://www.usf.edu/business/about/bios/agrawal-manish.aspx",
   },
   {
@@ -30,7 +30,7 @@ const studentVolunteers = {
     {
       name: "Sonal Shreya",
       role: "MS AIBA 2026",
-      image: "/assets/Photos/person.jpg",
+      image: "/assets/Photos/sonal.jpg",
     },
     {
       name: "Aditi Malik",
