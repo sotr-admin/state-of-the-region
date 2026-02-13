@@ -19,11 +19,11 @@ const Header = () => {
       <div className="logo-group">
   <div className="logo-text">
     <div className="logo-line1">
-      University of South Florida Regional Competitiveness Dashboard
+      University of South Florida Regional Insights Dashboard
     </div>
-    <div className="logo-line2">
+    {/*<div className="logo-line2">
       A STATE OF THE REGION INITIATIVE
-    </div>
+    </div>*/}
   </div>
 </div>
 

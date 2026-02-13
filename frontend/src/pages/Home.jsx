@@ -2,6 +2,9 @@ import React, { useEffect, useMemo, useState } from "react";
 import "./Home.css";
 import USAMap from "./USAMap";
 
+const HUBSPOT_SCRIPT_ID = "hubspot-forms-embed";
+const HUBSPOT_SCRIPT_SRC = "https://js.hsforms.net/forms/embed/46516044.js";
+
 const Home = () => {
   const topics = useMemo(
     () =>
@@ -69,45 +72,18 @@ const Home = () => {
 
   const active = topics[activeIndex];
 
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    message: "",
-  });
+  // ✅ Load HubSpot form embed script once
+  useEffect(() => {
+    // If script already exists, don't add again
+    if (document.getElementById(HUBSPOT_SCRIPT_ID)) return;
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      // TODO: replace with your real backend endpoint
-      const res = await fetch("https://your-backend.com/api/mailing-list", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-
-      if (!res.ok) throw new Error("Failed to send");
-
-      alert("Thanks! You’re subscribed.");
-      setFormData({
-        firstName: "",
-        lastName: "",
-        email: "",
-        phone: "",
-        message: "",
-      });
-    } catch (err) {
-      console.error(err);
-      alert("Error sending message. Please try again.");
-    }
-  };
+    const s = document.createElement("script");
+    s.id = HUBSPOT_SCRIPT_ID;
+    s.src = HUBSPOT_SCRIPT_SRC;
+    s.defer = true;
+    s.async = true;
+    document.body.appendChild(s);
+  }, []);
 
   const handleViewReport = () => {
     window.open(
@@ -116,7 +92,6 @@ const Home = () => {
       "noopener,noreferrer"
     );
   };
-  
 
   return (
     <div className="home-container">
@@ -128,7 +103,8 @@ const Home = () => {
             <h1>Shaping Tomorrow Through Data Today</h1>
 
             <span className="hero-subtext">
-            Built to support evidence-based policy, regional planning, and informed decision-making.
+              Supporting evidence based policy, regional planning, and informed
+              decision-making.
             </span>
 
             {/* ✅ subtle divider line under subtitle */}
@@ -137,10 +113,24 @@ const Home = () => {
             {/* NEW wrapper */}
             <div className="hero-content">
               <p className="home-intro-text">
-              An interactive regional dashboard with nationwide county comparisons, helping policymakers, researchers, business leaders, and residents explore economic, demographic, and quality-of-life indicators — from income and employment to education, housing, transportation, and health — to better understand how communities are changing over time
+                This interactive regional dashboard offers nationwide county
+                comparisons to help policymakers, researchers, business leaders,
+                and residents explore economic, demographic, and quality-of-life
+                indicators. With metrics about income, employment, education,
+                housing, transportation, and health we can better understand how
+                communities are changing over time.
               </p>
               <p className="home-intro-text">
-              The State of the Region dashboard brings together trusted national and local data, interactive visualizations, and peer comparisons so users can explore and compare key measures of economic performance, population change, and community wellbeing across U.S. counties. Whether you’re a community leader evaluating where targeted action could boost opportunity, a researcher analyzing trends, a business leader scouting new markets, or a resident considering where to live and work, this tool makes it easier to see how communities are growing, changing, and stacking up against similar regions.
+                The Regional Insights dashboard brings together trusted national
+                and local data, interactive visualizations, and peer comparisons
+                so users can compare key measures of economic performance,
+                population change, and community wellbeing across U.S. counties.
+                Whether you’re a community leader evaluating where targeted
+                action could boost opportunity, a researcher analyzing trends, a
+                business leader scouting new markets, or a resident considering
+                where to live and work, this tool makes it easier to see how
+                communities are growing, changing, and stacking up against
+                similar regions.
               </p>
             </div>
           </div>
@@ -220,8 +210,30 @@ const Home = () => {
           <div className="insight-section">
             <h2>Tampa Bay Data Insights</h2>
             <p>
-            A companion piece to the Regional Competitiveness Report, the Tampa Bay E-Insights Report is a multi-dimensional quantitative assessment of the region’s economic health, produced by the Muma College of Business at the University of South Florida.
-            </p>
+  A companion piece of{" "}
+  <a
+    href="https://stateoftheregion.com/overview/"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="inline-link"
+  >
+    Regional Competitiveness Report
+  </a>
+  , (produced by the Tampa Bay Partnership and collaborating partners,
+  Community Foundation Tampa Bay and United Way Suncoast) the Tampa Bay
+  E-Insights Report is a multi-dimensional quantitative assessment of the
+  region’s economic health, produced by the Muma College of Business at the
+  University of South Florida with support from Florida Blue. <br></br>These reports
+  are released annually at {" "}
+  <a
+    href="https://stateoftheregion.com/"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="inline-link"
+  >
+    The State of the Region
+  </a> event.
+</p>
             <button
               className="download-btn"
               type="button"
@@ -244,78 +256,38 @@ const Home = () => {
         <div className="subscribe-cta-inner">
           <div className="subscribe-copy">
             <p className="subscribe-eyebrow">STAY CONNECTED</p>
-            <h2 className="subscribe-title">Get State of the Region updates</h2>
+            <h2 className="subscribe-title">Get Regional Insights updates</h2>
             <p className="subscribe-subtitle">
-              Subscribe for new indicators, dashboard releases, report highlights,
-              and key regional insights from University of South Florida Muma College of Business.
+              Subscribe for new indicators, dashboard releases, report
+              highlights, and key regional insights from University of South
+              Florida Muma College of Business.
             </p>
 
             <ul className="subscribe-bullets">
-              <li>New indicators & trend dashboards</li>
+              <li>New indicators and trend dashboards</li>
               <li>Report drops and executive summaries</li>
-              <li>Events, briefings, and data stories</li>
+              <li>Events, briefings, and research stories</li>
             </ul>
           </div>
 
           <div className="subscribe-card">
-            <h3 className="subscribe-card-title">Join the mailing list</h3>
-            <p className="subscribe-card-note">Takes less than a minute.</p>
+  {/* REMOVE these two lines if HubSpot already shows them */}
+  {/* <h3 className="subscribe-card-title">Join the mailing list</h3> */}
+  {/* <p className="subscribe-card-note">Takes less than a minute.</p> */}
 
-            <form className="subscribe-form" onSubmit={handleSubmit}>
-              <div className="subscribe-grid">
-                <input
-                  type="text"
-                  name="firstName"
-                  placeholder="First Name*"
-                  value={formData.firstName}
-                  onChange={handleChange}
-                  required
-                />
-                <input
-                  type="text"
-                  name="lastName"
-                  placeholder="Last Name*"
-                  value={formData.lastName}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
+  <div
+    className="hs-form-frame"
+    data-region="na1"
+    data-form-id="39452b27-e60b-4a61-8eb5-eba1726e59ff"
+    data-portal-id="46516044"
+  />
 
-              <input
-                type="email"
-                name="email"
-                placeholder="Email*"
-                value={formData.email}
-                onChange={handleChange}
-                required
-              />
+  <p className="subscribe-privacy">
+    By subscribing, you agree to receive emails from University of South Florida
+    Muma College of Business’s State of the Region. You can unsubscribe anytime.
+  </p>
+</div>
 
-              <input
-                type="tel"
-                name="phone"
-                placeholder="Phone (optional)"
-                value={formData.phone}
-                onChange={handleChange}
-              />
-
-              <textarea
-                name="message"
-                placeholder="What topics are you most interested in? (optional)"
-                rows="3"
-                value={formData.message}
-                onChange={handleChange}
-              />
-
-              <button className="subscribe-btn" type="submit">
-                Subscribe
-              </button>
-
-              <p className="subscribe-privacy">
-                By subscribing, you agree to receive emails from Univesity of South Florida Muma College of Business’s State
-                of the Region. You can unsubscribe anytime.
-              </p>
-            </form>
-          </div>
         </div>
       </section>
     </div>

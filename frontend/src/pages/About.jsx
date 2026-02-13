@@ -5,7 +5,7 @@ import USAMap from "./USAMap"; // reuse the same map as Home
 const teamLeads = [
   {
     name: "Dr. Manish Agrawal",
-    image: "/assets/Photos/Prof_Manish.png",
+    image: "/assets/Photos/manish.png",
     link: "https://www.usf.edu/business/about/bios/agrawal-manish.aspx",
   },
   {
@@ -86,10 +86,10 @@ const About = () => {
       <div className="about-content-wrapper">
         {/* ---- HEADER / HERO ---- */}
         <div className="about-header">
-          <h1 className="about-title">About State of the Region</h1>
+          <h1 className="about-title">About the Regional Insights Dashboard</h1>
 
           <p className="about-intro-text">
-            <strong>State of the Region</strong> is an interactive, data-driven
+            <strong>The Regional Insights Dashboard</strong> is an interactive, data-driven
             platform designed to help communities understand their economic,
             social, and demographic standing within a broader national context.
             Originally developed as a regional benchmarking tool for the Tampa Bay
@@ -104,7 +104,7 @@ const About = () => {
             students, and residents—to explore trends, identify opportunities,
             and support informed decision-making. Whether examining workforce
             dynamics, housing affordability, public health measures, or economic
-            competitiveness, State of the Region provides essential context for
+            competitiveness, Regional Insights Dashboard provides essential context for
             understanding how communities are performing today and how they are
             changing over time.
           </p>
@@ -129,28 +129,22 @@ const About = () => {
             {openSection === "vision" && (
               <div className="accordion-content">
                 <p>
-                  The State of the Region report and dashboard were created with a
-                  simple but ambitious vision: to make regional data accessible,
-                  meaningful, and actionable. What began as a localized effort to
-                  understand Tampa Bay’s position among peer metropolitan areas has
-                  grown into a robust national platform that enables comparisons
-                  across cities, counties, and states using a wide range of economic
-                  and social indicators.
+                The <strong>E-Insights report and Regional Insights Dashboard</strong> were created with a simple but ambitious vision: to make regional data accessible, meaningful, and actionable. What began as a localized effort to understand Tampa Bay’s position among peer metropolitan areas has grown into a robust national platform that enables comparisons across cities, counties, and states using a wide range of economic and social indicators.
                 </p>
                 <p>
                   The project empowers communities by transforming complex datasets
                   into clear, intuitive insights. Rather than presenting isolated
-                  facts or one-off reports, State of the Region offers a structured,
+                  facts or one-off reports, the Regional Insights Dashboard offers a structured,
                   comparative view of performance, helping users understand how
                   regions relate to one another and how they are changing over time.
                 </p>
                 <p>
-                  Our vision is to support better decision-making—whether for
+                  Our vision is to support better decision making whether for
                   policymakers evaluating public investments, businesses analyzing
                   market opportunities, researchers studying long-term trends, or
                   residents seeking to better understand their communities. By
                   fostering transparency, accessibility, and continuous learning,
-                  State of the Region aims to serve as a trusted resource that
+                  this resource, and those offered through the State of the Region website, aims to serve as a trusted resource that
                   elevates conversations about regional growth, competitiveness,
                   and quality of life.
                 </p>
@@ -166,7 +160,7 @@ const About = () => {
                 setOpenSection(openSection === "overview" ? "" : "overview")
               }
             >
-              <span>Website Overview</span>
+              <span>Dashboard Overview</span>
               <span className="accordion-icon">
                 {openSection === "overview" ? "−" : "+"}
               </span>
@@ -175,8 +169,8 @@ const About = () => {
             {openSection === "overview" && (
               <div className="accordion-content">
                 <p>
-                  The <strong>State of the Region</strong> website is designed to
-                  be approachable for a wide range of users—from high school
+                  The <strong>Regional Insights Dashboard</strong> is designed to
+                  be approachable for a wide range of users from high school
                   students and new analysts to experienced researchers and policy
                   leaders. Every element of the platform emphasizes clarity,
                   simplicity, and consistency, making it possible to uncover
@@ -201,7 +195,7 @@ const About = () => {
                   benchmarks.
                 </p>
                 <p>
-                  Overall, the site is built to spark curiosity, simplify complex
+                  Overall, the dashboard is built to spark curiosity, simplify complex
                   data, and support informed decision making whether a user is
                   analyzing housing markets, examining workforce trends, or
                   exploring economic change across communities nationwide.
@@ -227,7 +221,7 @@ const About = () => {
             {openSection === "data" && (
               <div className="accordion-content">
                 <p>
-                  <strong>State of the Region</strong> dashboard relies exclusively
+                  The<strong>Regional Insights</strong> dashboard relies exclusively
                   on reputable, well-documented, and publicly available data
                   sources. These include the U.S. Census Bureau, the Bureau of
                   Labor Statistics, the Bureau of Economic Analysis, Zillow, County
@@ -274,7 +268,7 @@ const About = () => {
             {openSection === "team" && (
               <div className="accordion-content">
                 <p>
-                  <strong>State of the Region</strong> project is the result of
+                  The<strong>Regional Insights</strong> project is the result of
                   sustained collaboration between faculty leaders and graduate
                   students at the Muma College of Business at the University of
                   South Florida. Faculty coordinators provide strategic direction,
@@ -282,20 +276,10 @@ const About = () => {
                   throughout the project.
                 </p>
                 <p>
-                  Graduate student contributors play a central role in the
-                  platform’s development, supporting research, data preparation,
-                  visualization design, testing, and the implementation of new
-                  features. Their work is essential to keeping the site accurate,
-                  relevant, and user-friendly. Team members bring diverse academic
-                  and professional backgrounds—from analytics and economics to
-                  software development and public policy—strengthening the depth
-                  and quality of the project.
+                Graduate student contributors play a central role in the platform’s development, supporting research, data preparation, visualization design, testing, and the implementation of new features. Their work is essential to keeping the site accurate, relevant, and user-friendly. Team members bring diverse academic and professional backgrounds—from analytics and economics to software development and public policy—strengthening the depth and quality of the project.
                 </p>
                 <p>
-                  Together, faculty and student contributors form a collaborative
-                  team committed to improving access to high-quality data and
-                  supporting informed decision-making across communities
-                  nationwide.
+                Together, faculty and student contributors form a collaborative team committed to improving access to high-quality data and supporting informed decision-making across communities nationwide. 
                 </p>
 
                 {/* Faculty */}
