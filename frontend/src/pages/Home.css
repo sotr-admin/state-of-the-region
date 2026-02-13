@@ -925,3 +925,15 @@
 .divider-dot:nth-child(2) {
   opacity: 0.75;
 }
+.inline-link {
+  color: #006747; /* USF Green */
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(0, 103, 71, 0.4);
+  transition: all 0.2s ease;
+}
+
+.inline-link:hover {
+  border-bottom: 1px solid #006747;
+  opacity: 0.85;
+}
