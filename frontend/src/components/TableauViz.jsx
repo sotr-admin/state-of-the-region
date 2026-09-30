@@ -1,22 +1,28 @@
 import React, { useMemo } from "react";
 
-// Normalize Tableau Public URLs so embeds work reliably
+/**
+ * Normalize Tableau Public URLs so embeds work reliably and look "website-native".
+ * We force:
+ *  - :showVizHome=no
+ *  - :embed=yes
+ *  - :showAppBanner=false
+ * Optional:
+ *  - :toolbar=no
+ *  - :tabs=no
+ */
 function normalize(url) {
   if (!url) return "";
 
-  // If user gives a "shared" link, keep it and ensure showVizHome=no
-  if (url.includes("/shared/")) {
-    if (url.includes("?")) {
-      return url.includes("showVizHome") ? url : `${url}&:showVizHome=no`;
-    }
-    return `${url}?:showVizHome=no`;
-  }
+  const hasQuery = url.includes("?");
+  const join = hasQuery ? "&" : "?";
 
-  // For /views/ links, add showVizHome=no
-  if (url.includes("?")) {
-    return url.includes("showVizHome") ? url : `${url}&:showVizHome=no`;
-  }
-  return `${url}?:showVizHome=no`;
+  let out = url;
+  if (!out.includes(":showVizHome=no")) out = `${out}${join}:showVizHome=no`;
+  if (!out.includes(":embed=yes")) out = `${out}&:embed=yes`;
+  if (!out.includes(":showAppBanner=false"))
+    out = `${out}&:showAppBanner=false`;
+
+  return out;
 }
 
 export default function TableauViz({
@@ -29,14 +35,15 @@ export default function TableauViz({
 
   const finalUrl = useMemo(() => {
     if (!base) return "";
-    const join = base.includes("?") ? "&" : "?";
+    const extra = [];
 
-    // Tableau expects these as :param=value style
-    const toolbarParam = toolbar ? "" : ":toolbar=no";
-    const tabsParam = tabs ? "" : ":tabs=no";
+    if (!toolbar) extra.push(":toolbar=no");
+    if (!tabs) extra.push(":tabs=no");
 
-    const extra = [toolbarParam, tabsParam].filter(Boolean).join("&");
-    return extra ? `${base}${join}${extra}` : base;
+    const existing = base.toLowerCase();
+    const filtered = extra.filter((p) => !existing.includes(p.toLowerCase()));
+
+    return filtered.length ? `${base}&${filtered.join("&")}` : base;
   }, [base, toolbar, tabs]);
 
   if (!finalUrl) {

@@ -3,7 +3,6 @@
   max-width: 1400px;
   margin: 0 auto;
   padding: 2rem;
-  font-family: Helvetica, Arial, sans-serif;
 }
 
 /* ===== Header band ===== */
@@ -24,7 +23,7 @@
 .policy-playground-subtitle {
   margin: 0;
   font-size: 0.98rem;
-  max-width: 100%;
+  max-width: 40rem;
   line-height: 1.5;
 }
 
