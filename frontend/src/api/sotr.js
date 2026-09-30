@@ -1,7 +1,8 @@
 // src/api/sotr.js
 // CRA env vars (not Vite). Put these in .env.local at the project root:
 //   REACT_APP_API_BASE=http://localhost:4000
-const API_BASE = process.env.REACT_APP_API_BASE || 'http://localhost:4000';
+const API_BASE =
+  process.env.REACT_APP_API_BASE_URL || process.env.REACT_APP_API_BASE || 'http://localhost:4000';
 
 async function get(path, params = {}) {
   const url = new URL(API_BASE + path);
