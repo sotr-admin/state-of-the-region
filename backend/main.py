@@ -10,6 +10,9 @@ from routers.employment import router as employment_router
 from routers.poverty import router as poverty_router
 from routers.demographics import router as demographics_router
 from routers.availability import router as availability_router
+from explore_api.lookups import router as explore_lookups_router
+from explore_api.rankings import router as explore_rankings_router
+from explore_api.comparison import router as explore_comparison_router
 
 
 
@@ -38,3 +41,6 @@ app.include_router(employment_router)
 app.include_router(poverty_router)
 app.include_router(demographics_router)
 app.include_router(availability_router)
+app.include_router(explore_lookups_router)
+app.include_router(explore_rankings_router)
+app.include_router(explore_comparison_router)
