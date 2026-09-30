@@ -1,5 +1,5 @@
 // src/pages/Explore.jsx
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import {
   Bar, BarChart, CartesianGrid, Legend, Line, LineChart,
@@ -114,7 +114,7 @@ const Explore = () => {
 );
 
   const unit = series.data?.indicator?.unit || indicator?.unit;
-  const rows = series.data?.data || [];
+  const rows = useMemo(() => series.data?.data || [], [series.data]);
   const regions = useMemo(
     () => (series.data?.geos || []).map((g, i) => ({ ...g, ...SLOTS[i % SLOTS.length] })),
     [series.data]

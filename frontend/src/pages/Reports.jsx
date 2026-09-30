@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useRef, useEffect } from "react";
+import React, { useMemo, useState } from "react";
 import { NavLink, useParams, useNavigate } from "react-router-dom";
 import "./Reports.css";
 import TableauViz from "../components/TableauViz";
@@ -145,7 +145,6 @@ function ReportsLanding() {
 // ── Individual indicator panel ────────────────────────────────────
 function IndicatorPanel({ ind, index }) {
   const [open, setOpen] = useState(index === 0); // first panel open by default
-  const hasMultiple = Array.isArray(ind.tableauUrls) || Array.isArray(ind.tableauUrl);
   const urls = ind.tableauUrls || (Array.isArray(ind.tableauUrl) ? ind.tableauUrl : null);
 
   return (
